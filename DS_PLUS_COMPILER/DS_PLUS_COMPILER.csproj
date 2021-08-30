@@ -5,4 +5,10 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Entrada\" />
+    <Folder Include="Modelos\" />
+    <Folder Include="Saida\" />
+  </ItemGroup>
+
 </Project>
