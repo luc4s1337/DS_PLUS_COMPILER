@@ -7,7 +7,6 @@
 
   <ItemGroup>
     <Folder Include="Entrada\" />
-    <Folder Include="Modelos\" />
     <Folder Include="Saida\" />
   </ItemGroup>
 

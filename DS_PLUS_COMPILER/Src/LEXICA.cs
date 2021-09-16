@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DS_PLUS_COMPILER
+namespace DS_PLUS_COMPILER.Src
 {
-    class Config
-    { 
-        public static string Aplicacao { get; set; } = "DS+ COMPILER";
+    class LEXICA
+    {
     }
 }
