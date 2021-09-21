@@ -30,6 +30,7 @@ namespace DS_PLUS_COMPILER.Utils
             this.Buffer = streamReader.ReadToEnd();
         }
 
+        //TODO
         public void GenerateOutputFileLog() 
         {
 
