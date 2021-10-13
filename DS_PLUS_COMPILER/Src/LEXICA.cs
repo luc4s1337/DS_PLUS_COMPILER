@@ -20,6 +20,10 @@ namespace DS_PLUS_COMPILER.Src
         public void StartAnaliseLexica() 
         {
             //IMPLEMENTAR LOGICA LEXICA
+            foreach (char c in this.Buffer) 
+            {
+                Console.Write(c);
+            }          
         }
     }
 }

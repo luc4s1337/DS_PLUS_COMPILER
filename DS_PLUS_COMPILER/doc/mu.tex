@@ -1,0 +1,209 @@
+\documentclass{article}
+
+%encoding
+%--------------------------------------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+%--------------------------------------
+
+%Portuguese-specific commands
+%--------------------------------------
+\usepackage[portuguese]{babel}
+%--------------------------------------
+
+\usepackage{graphicx}
+\usepackage{indentfirst}
+\usepackage{hyperref}
+\usepackage{tabularx}
+
+
+\title{Estudo Dirigido Compiladores}
+
+\author{Lucas Ferreira de Almeida}
+
+\date{13/10/2021}
+
+\begin{document}
+	
+	\maketitle
+	
+	\tableofcontents
+	
+	\pagebreak
+	
+	\section{Tokens}
+	
+	\subsection{Identificadores}
+	
+	\begin{tabularx}{0.8\textwidth} { 
+			| >{\raggedright\arraybackslash}X 
+			| >{\centering\arraybackslash}X 
+			| >{\raggedleft\arraybackslash}X | }
+		\hline
+		Identificador & ID  \\
+		\hline
+	\end{tabularx}
+	
+	\subsection{Literais}
+	
+	\begin{tabularx}{0.8\textwidth} { 
+			| >{\raggedright\arraybackslash}X 
+			| >{\centering\arraybackslash}X 
+			| >{\raggedleft\arraybackslash}X | }
+		\hline
+		Inteiros & \texttt{LIT\_INT}  \\
+		\hline
+		Reais & \texttt{LIT\_FLT}   \\
+		\hline
+		Caractere & \texttt{LIT\_CHAR}  \\
+		\hline
+		String & \texttt{LIT\_STR}   \\
+		\hline
+		Boolean & \texttt{LIT\_BOOL}  \\
+		\hline
+	\end{tabularx}
+	
+	\subsection{Palavras Reservadas}
+	
+	\begin{tabularx}{0.8\textwidth} { 
+			| >{\raggedright\arraybackslash}X 
+			| >{\centering\arraybackslash}X 
+			| >{\raggedleft\arraybackslash}X | }
+		\hline
+		void & \texttt{PR\_VOID}  \\
+		\hline
+		int & \texttt{PR\_INT}  \\
+		\hline
+		float & \texttt{PR\_FLT}  \\
+		\hline
+		char & \texttt{PR\_CHAR}  \\
+		\hline
+		bool & \texttt{PR\_BOOL}  \\
+		\hline
+		if & \texttt{PR\_IF}  \\
+		\hline
+		then & \texttt{PR\_THEN}  \\
+		\hline
+		else & \texttt{PR\_ELSE}  \\
+		\hline
+		end-if & \texttt{PR\_ENDIF}  \\
+		\hline
+		for & \texttt{PR\_FOR}  \\
+		\hline
+		while & \texttt{PR\_WHILE}  \\
+		\hline
+		do & \texttt{PR\_DO}  \\
+		\hline
+		loop & \texttt{PR\_LOOP}  \\
+		\hline
+		return & \texttt{PR\_RETURN}  \\
+		\hline
+		break & \texttt{PR\_BREAK}  \\
+		\hline
+		continue & \texttt{PR\_CONTINUE}  \\
+		\hline
+		goto & \texttt{PR\_GOTO}  \\
+		\hline
+		true & \texttt{PR\_TRUE}  \\
+		\hline
+		false & \texttt{PR\_FALSE}  \\
+		\hline
+		var & \texttt{PR\_VAR}  \\
+		\hline
+		main & \texttt{PR\_MAIN}  \\
+		\hline
+		scan & \texttt{PR\_SCAN}  \\
+		\hline
+		scanln & \texttt{PR\_SCANLN}  \\
+		\hline
+		print & \texttt{PR\_PRINT}  \\
+		\hline
+		println & \texttt{PR\_PRINTLN}  \\
+		\hline
+	\end{tabularx}
+	
+	\subsection{Pontuação}
+	
+	\begin{tabularx}{0.8\textwidth} { 
+			| >{\raggedright\arraybackslash}X 
+			| >{\centering\arraybackslash}X 
+			| >{\raggedleft\arraybackslash}X | }
+		\hline
+		, & \texttt{VIRGULA} \\
+		\hline
+		; & \texttt{PONTO\_VIRGULA} \\
+		\hline
+		( & \texttt{ABRE\_PARENTESES} \\
+		\hline
+		) & \texttt{FECHA\_PARENTESES} \\
+		\hline
+		[ & \texttt{ABRE\_COLCHETES} \\
+		\hline
+		] & \texttt{FECHA\_COLCHETES} \\
+		\hline
+		{ & \texttt{ABRE\_CHAVES} \\
+			\hline
+		} & \texttt{FECHA\_CHAVES} \\
+		\hline
+	\end{tabularx} 
+	
+	\subsection{Operadores}
+	
+	\begin{tabularx}{0.8\textwidth} { 
+			| >{\raggedright\arraybackslash}X 
+			| >{\centering\arraybackslash}X 
+			| >{\raggedleft\arraybackslash}X | }
+		\hline
+		+ & \texttt{OP\_SOMA} \\
+		\hline
+		- & \texttt{OP\_SUB} \\
+		\hline
+		* & \texttt{OP\_MULT} \\
+		\hline
+		/ & \texttt{OP\_DIV} \\
+		\hline
+		\% & \texttt{OP\_MOD} \\
+		\hline
+		? & \texttt{OP\_TER} \\
+		\hline
+		! & \texttt{OP\_NEG} \\
+		\hline
+		. & \texttt{OP\_PONTO} \\
+		\hline
+		< & \texttt{OP\_MENOR} \\
+		\hline
+		> & \texttt{OP\_MAIOR} \\
+		\hline
+		== & \texttt{OP\_IGUAL} \\
+		\hline
+		!= & \texttt{OP\_DIF} \\
+		\hline
+		<= & \texttt{OP\_MEN\_IGUAL} \\
+		\hline
+		>= & \texttt{OP\_MAI\_IGUAL} \\
+		\hline
+		= & \texttt{OP\_ATRI} \\
+		\hline
+		+= &  \texttt{OP\_ADIC\_IGUAL} \\
+		\hline
+		-= &  \texttt{OP\_SUB\_IGUAL} \\
+		\hline
+		++ &  \texttt{OP\_INC} \\
+		\hline
+		-- &  \texttt{OP\_DEC} \\
+		\hline
+		\&\& &  \texttt{OP\_AND} \\
+		\hline
+		|| &  \texttt{OP\_OR} \\
+		\hline
+	\end{tabularx}
+	
+	\section{Diagramas de transição}
+	
+	\subsection{Identificadores}
+	\subsection{Literais}
+	\subsection{Pontuação}
+	\subsection{Palavras Reservadas}
+	\subsection{Operadores}
+	
+\end{document}

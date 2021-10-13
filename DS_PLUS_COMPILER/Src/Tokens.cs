@@ -31,13 +31,13 @@ namespace DS_PLUS_COMPILER.Src
 
     class Token
     {
-        public Tokens token { get; set; }
-        public string lexema { get; set; }
+        public Tokens TokenCodigo { get; set; }
+        public string Lexema { get; set; }
 
-        public Token(Tokens _token, string _lexema)
+        public Token(Tokens _tokenCodigo, string _lexema)
         {
-            this.token = _token;
-            this.lexema = _lexema;
+            this.TokenCodigo = _tokenCodigo;
+            this.Lexema = _lexema;
         }
     }
 }

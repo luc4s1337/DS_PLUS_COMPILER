@@ -9,5 +9,6 @@ namespace DS_PLUS_COMPILER
     class Config
     { 
         public static string Aplicacao { get; set; } = "DS+ COMPILER";
+        public static readonly string InputPath = "..\\..\\..\\Entrada\\Programa.d";
     }
 }
