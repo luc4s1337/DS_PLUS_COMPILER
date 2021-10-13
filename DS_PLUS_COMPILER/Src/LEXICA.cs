@@ -71,15 +71,14 @@ namespace DS_PLUS_COMPILER.Src
 										break;
 									case ' ':
 										break;
+                                    default:
+										Erro("Caractere inválido.");
+										break;
 								}
 							}
 						}
 						break;
-						/*else
-									Erro("Caractere invalido");
-								break;
-
-							case 2:
+							/*case 2:
 								while (isdigit(ch))
 								{
 									ch = proxChar();
