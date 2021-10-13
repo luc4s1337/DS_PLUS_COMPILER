@@ -19,6 +19,7 @@ namespace DS_PLUS_COMPILER
 
             //Inicia a analise
             analisadorLexico.StartAnaliseLexica();
+            analisadorLexico.PrintAnalise();
 
             Console.WriteLine("");
             Console.ReadKey();

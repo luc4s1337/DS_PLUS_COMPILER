@@ -12,16 +12,39 @@ namespace DS_PLUS_COMPILER.Src
         public enum Tokens
         {
             ID,
-            NUM_INT,
-            NUM_REAL,
-            CARACTERE,
-            STRING,
+            FIM,
+            
+            LIT_INT,
+            LIT_FLT,
+            LIT_CHAR,
+            LIT_STR,
+
+            PR_VOID,
+            PR_INT,
+            PR_FLT,
+            PR_CHAR,
+            PR_BOOL,
+            PR_IF,
+            PR_THEN,
+            PR_ELSE,
+            PR_ENDIF,
+            PR_FOR,
+            PR_WHILE,
+            PR_DO,
+            PR_RETURN,
+            PR_VAR,
+            PR_SCAN,
+            PR_PRINT,
+
+
             OP_SOMA,
             OP_SUB,
             OP_MULT,
             OP_DIV,
+            OP_MOD,
             OP_MAIOR,
             OP_MENOR,
+            OP_ATRI,
             OP_IGUAL,
             OP_DIFERENTE,
             OP_MAIOR_IGUAL,
@@ -34,9 +57,8 @@ namespace DS_PLUS_COMPILER.Src
         public Tokens TokenCodigo { get; set; }
         public string Lexema { get; set; }
 
-        public Token(Tokens _tokenCodigo, string _lexema)
+        public Token(string _lexema)
         {
-            this.TokenCodigo = _tokenCodigo;
             this.Lexema = _lexema;
         }
     }
