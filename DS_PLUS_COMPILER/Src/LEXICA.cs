@@ -63,6 +63,38 @@ namespace DS_PLUS_COMPILER.Src
 										this.LexemaAtual += ch;
 										InsertToken(Enums.Tokens.OP_MOD);
 										break;
+									case ',':
+										this.LexemaAtual += ch;
+										InsertToken(Enums.Tokens.VIRGULA);
+										break;
+									case ';':
+										this.LexemaAtual += ch;
+										InsertToken(Enums.Tokens.PONTO_VIRGULA);
+										break;
+									case '{':
+										this.LexemaAtual += ch;
+										InsertToken(Enums.Tokens.ABRE_CHAVES);
+										break;
+									case '}':
+										this.LexemaAtual += ch;
+										InsertToken(Enums.Tokens.FECHA_CHAVES);
+										break;
+									case '(':
+										this.LexemaAtual += ch;
+										InsertToken(Enums.Tokens.ABRE_PARENTESES);
+										break;
+									case ')':
+										this.LexemaAtual += ch;
+										InsertToken(Enums.Tokens.FECHA_PARENTESES);
+										break;
+									case '[':
+										this.LexemaAtual += ch;
+										InsertToken(Enums.Tokens.ABRE_COLCHETES);
+										break;
+									case ']':
+										this.LexemaAtual += ch;
+										InsertToken(Enums.Tokens.FECHA_COLCHETES);
+										break;
 									case '\t':
 										break;
 									case '\0':

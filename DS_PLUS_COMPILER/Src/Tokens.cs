@@ -48,7 +48,16 @@ namespace DS_PLUS_COMPILER.Src
             OP_IGUAL,
             OP_DIFERENTE,
             OP_MAIOR_IGUAL,
-            OP_MENOR_IGUAL
+            OP_MENOR_IGUAL,
+
+            VIRGULA,
+            PONTO_VIRGULA,
+            ABRE_COLCHETES,
+            FECHA_COLCHETES,
+            ABRE_CHAVES,
+            FECHA_CHAVES,
+            ABRE_PARENTESES,
+            FECHA_PARENTESES
         }
     }
 
