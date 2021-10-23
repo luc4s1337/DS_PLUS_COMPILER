@@ -31,7 +31,7 @@ namespace DS_PLUS_COMPILER.Utils
         }
 
         //TODO
-        public void GenerateOutputFileLog() 
+        public void PrintFile(string print) 
         {
 
         }

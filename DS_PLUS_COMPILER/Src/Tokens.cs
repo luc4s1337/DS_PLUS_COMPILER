@@ -11,54 +11,50 @@ namespace DS_PLUS_COMPILER.Src
     {
         public enum Tokens
         {
-            ID,
-            FIM,
-            
-            LIT_INT,
-            LIT_FLT,
-            LIT_CHAR,
-            LIT_STR,
+            ID, //done
+            FIM, //done
 
-            PR_VOID,
-            PR_INT,
-            PR_FLT,
-            PR_CHAR,
-            PR_BOOL,
-            PR_IF,
-            PR_THEN,
-            PR_ELSE,
-            PR_ENDIF,
-            PR_FOR,
-            PR_WHILE,
-            PR_DO,
-            PR_RETURN,
-            PR_VAR,
-            PR_SCAN,
-            PR_PRINT,
+            LIT_INT, //done
+            LIT_FLT, //done
+            LIT_CHAR, //done
+            LIT_STR, //done
 
+            PR_BOOL, //done
+            PR_CHAR, //done
+            PR_ELSE, //done
+            PR_FOR, //done
+            PR_FLT, //done
+            PR_IF, //done
+            PR_INT, //done         
+            PR_PRINT, //done
+            PR_RTN, //done
+            PR_SCN, //done
+            PR_STR, //done
+            PR_VOID, //done
+            PR_WHILE, //done
 
-            OP_SOMA, //
-            OP_SUB, //
-            OP_MULT, //
-            OP_DIV, //
-            OP_MOD, //
-            OP_MAIOR, //
-            OP_MENOR, //
-            OP_ATRI, //
-            OP_IGUAL, //
-            OP_NEGA, //
-            OP_DIFERENTE, //
-            OP_MAIOR_IGUAL, //
-            OP_MENOR_IGUAL, //
+            OP_SOMA, //done
+            OP_SUB, //done 
+            OP_MULT, //done
+            OP_DIV, //done
+            OP_MOD, //done
+            OP_MAIOR, //done
+            OP_MENOR, //done
+            OP_ATRI, //done
+            OP_IGUAL, //done
+            OP_NEGA, //done
+            OP_DIFERENTE, //done
+            OP_MAIOR_IGUAL, //done
+            OP_MENOR_IGUAL, //done
 
-            VIRGULA, //
-            PONTO_VIRGULA, //
-            ABRE_COLCHETES, //
-            FECHA_COLCHETES, //
-            ABRE_CHAVES, //
-            FECHA_CHAVES, //
-            ABRE_PARENTESES, //
-            FECHA_PARENTESES //
+            VIRGULA, //done
+            PONTO_VIRGULA, //done
+            ABRE_COLCHETES, //done
+            FECHA_COLCHETES,//done
+            ABRE_CHAVES,//done
+            FECHA_CHAVES, //done
+            ABRE_PARENTESES, //done
+            FECHA_PARENTESES //done
         }
     }
 
