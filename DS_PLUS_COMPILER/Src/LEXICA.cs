@@ -10,7 +10,8 @@ namespace DS_PLUS_COMPILER.Src
 	class LEXICA
 	{
 		public string Buffer { get; set; }
-		public List<Token> Tokens { get; set; }
+		public int BufferIndex { get; set; } = 0;
+        public List<Token> Tokens { get; set; }
 
 		public int Estado { get; set; } = 1;
 
@@ -28,21 +29,57 @@ namespace DS_PLUS_COMPILER.Src
 			{
 				switch (Estado)
 				{
-					case 1:
+					case 0:
 						if (IsDigit(ch))
 						{
-							this.Estado = 2;
+							this.Estado = 1;
 						}
 						else
 						{
 							if (IsAlpha(ch))
 							{
-								this.Estado = 3;
+								this.Estado = 2;
 							}
 							else
 							{
 								switch (ch)
 								{
+									case '=':
+										this.LexemaAtual += ch;
+										
+										if (Buffer[BufferIndex + 1] != '=')
+											InsertToken(Enums.Tokens.OP_ATRI);
+										else
+											this.Estado = 3;
+
+										break;
+									case '!':
+										this.LexemaAtual += ch;
+
+										if (Buffer[BufferIndex + 1] != '=')
+											InsertToken(Enums.Tokens.OP_NEGA);
+										else
+											this.Estado = 4;
+
+										break;
+									case '<':
+										this.LexemaAtual += ch;
+
+										if (Buffer[BufferIndex + 1] != '=')
+											InsertToken(Enums.Tokens.OP_MENOR);
+										else
+											this.Estado = 5;
+
+										break;
+									case '>':
+										this.LexemaAtual += ch;
+
+										if (Buffer[BufferIndex + 1] != '=')
+											InsertToken(Enums.Tokens.OP_MAIOR);
+										else
+											this.Estado = 6;
+
+										break;
 									case '+':
 										this.LexemaAtual += ch;
 										InsertToken(Enums.Tokens.OP_SOMA);
@@ -110,54 +147,67 @@ namespace DS_PLUS_COMPILER.Src
 							}
 						}
 						break;
-							/*case 2:
-								while (isdigit(ch))
-								{
-									ch = proxChar();
-									printf("%c", ch);
-								}
-
-								if (ch == '.')
-								{
-									ch = proxChar();
-
-									while (isdigit(ch))
-									{
-										ch = proxChar();
-										printf("%c", ch);
-									}
-
-									voltaUm();
-									return NUM_FLOAT;
-								}
-								else
-								{
-									voltaUm();
-									return NUM_INT;
-								}
-
-								break;
-
-							case 3:
-								while (isdigit(ch) or isalpha(ch) or ch == '_'){
-									ch = proxChar();
-									printf("%c", ch);
-								}
-								voltaUm();
-								//token.TokenCodigo = Enums.Tokens.ID; // nome variavel
-
-								break;*/
+					case 1:
+						break;
+					case 2:								
+						break;
+					case 3:
+						if(ch == '=')
+						{
+							this.LexemaAtual += ch;
+							InsertToken(Enums.Tokens.OP_IGUAL);
+						}
+                        else
+						{
+							Erro("Caractere inválido.");
+						}
+						break;
+					case 4:
+						if (ch == '=')
+						{
+							this.LexemaAtual += ch;
+							InsertToken(Enums.Tokens.OP_DIFERENTE);
+						}
+						else
+						{
+							Erro("Caractere inválido.");
+						}
+						break;
+					case 5:
+						if (ch == '=')
+						{
+							this.LexemaAtual += ch;
+							InsertToken(Enums.Tokens.OP_MENOR_IGUAL);
+						}
+						else
+						{
+							Erro("Caractere inválido.");
+						}
+						break;
+					case 6:
+						if (ch == '=')
+						{
+							this.LexemaAtual += ch;
+							InsertToken(Enums.Tokens.OP_MAIOR_IGUAL);
+						}
+						else
+						{
+							Erro("Caractere inválido.");
+						}
+						break;
 				}
+
+				this.BufferIndex++;
 			}
 		}
 
 		private void InsertToken(Enums.Tokens _token)
 		{
-			Token token = new Token(this.LexemaAtual);
+			Token token = new(this.LexemaAtual);
 			token.TokenCodigo = _token;
 
 			this.Tokens.Add(token);
-			this.Estado = 1;
+			this.Estado = 0;
 			this.LexemaAtual = "";
 		}
 

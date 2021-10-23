@@ -37,27 +37,28 @@ namespace DS_PLUS_COMPILER.Src
             PR_PRINT,
 
 
-            OP_SOMA,
-            OP_SUB,
-            OP_MULT,
-            OP_DIV,
-            OP_MOD,
-            OP_MAIOR,
-            OP_MENOR,
-            OP_ATRI,
-            OP_IGUAL,
-            OP_DIFERENTE,
-            OP_MAIOR_IGUAL,
-            OP_MENOR_IGUAL,
+            OP_SOMA, //
+            OP_SUB, //
+            OP_MULT, //
+            OP_DIV, //
+            OP_MOD, //
+            OP_MAIOR, //
+            OP_MENOR, //
+            OP_ATRI, //
+            OP_IGUAL, //
+            OP_NEGA, //
+            OP_DIFERENTE, //
+            OP_MAIOR_IGUAL, //
+            OP_MENOR_IGUAL, //
 
-            VIRGULA,
-            PONTO_VIRGULA,
-            ABRE_COLCHETES,
-            FECHA_COLCHETES,
-            ABRE_CHAVES,
-            FECHA_CHAVES,
-            ABRE_PARENTESES,
-            FECHA_PARENTESES
+            VIRGULA, //
+            PONTO_VIRGULA, //
+            ABRE_COLCHETES, //
+            FECHA_COLCHETES, //
+            ABRE_CHAVES, //
+            FECHA_CHAVES, //
+            ABRE_PARENTESES, //
+            FECHA_PARENTESES //
         }
     }
 
