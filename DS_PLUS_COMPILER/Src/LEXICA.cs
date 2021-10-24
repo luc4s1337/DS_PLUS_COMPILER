@@ -46,7 +46,7 @@ namespace DS_PLUS_COMPILER.Src
 								{
 									//bool
 									case 'b':
-										this.Estado = 12;
+										this.Estado = 13;
 										break;
 									//char
 									case 'c':
@@ -205,7 +205,7 @@ namespace DS_PLUS_COMPILER.Src
 									case ' ':
 										break;
                                     default:
-										Erro("Caractere inválido.");
+										PrintMessage("Erro", "Caractere inválido.", this.LexemaAtual);
 										break;
 								}
 							}
@@ -245,7 +245,7 @@ namespace DS_PLUS_COMPILER.Src
 						}
                         else
 						{
-							Erro("Caractere inválido.");
+							PrintMessage("Erro", "Operador inválido.", this.LexemaAtual);
 						}
 						break;
 					case 4:
@@ -255,7 +255,7 @@ namespace DS_PLUS_COMPILER.Src
 							InsertToken(Enums.Tokens.OP_DIFERENTE);
                         }
 						else{
-							Erro("Caractere inválido.");
+							PrintMessage("Erro", "Operador inválido.", this.LexemaAtual);
 						}
 						break;
 					case 5:
@@ -266,7 +266,7 @@ namespace DS_PLUS_COMPILER.Src
 						}
 						else
 						{
-							Erro("Caractere inválido.");
+							PrintMessage("Erro", "Operador inválido.", this.LexemaAtual);
 						}
 						break;
 					case 6:
@@ -277,7 +277,7 @@ namespace DS_PLUS_COMPILER.Src
 						}
 						else
 						{
-							Erro("Caractere inválido.");
+							PrintMessage("Erro", "Operador inválido.", this.LexemaAtual);
 						}
 						break;
 					case 7:						
@@ -289,7 +289,7 @@ namespace DS_PLUS_COMPILER.Src
 						}
 						else 
 						{
-							Erro("Caractere inválido.");
+							PrintMessage("Erro", "Char inválido.", this.LexemaAtual);
 						}						
 						
 						break;
@@ -318,7 +318,7 @@ namespace DS_PLUS_COMPILER.Src
 						}
 						else
 						{
-							Erro("Erro ao gerar token.");
+							PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
 						}
 
 						break;
@@ -331,7 +331,7 @@ namespace DS_PLUS_COMPILER.Src
 						}
 						else
 						{
-							Erro("Erro ao gerar token.");
+							PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
 						}
 
 						break;
@@ -344,7 +344,7 @@ namespace DS_PLUS_COMPILER.Src
 						}
 						else
 						{
-							Erro("Erro ao gerar token.");
+							PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
 						}
 
 						break;
@@ -357,7 +357,7 @@ namespace DS_PLUS_COMPILER.Src
 						}
 						else
 						{
-							Erro("Erro ao gerar token.");
+							PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
 						}
 
 						break;
@@ -370,7 +370,7 @@ namespace DS_PLUS_COMPILER.Src
 						}
 						else
 						{
-							Erro("Erro ao gerar token.");
+							PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
 						}
 
 						break;
@@ -383,7 +383,7 @@ namespace DS_PLUS_COMPILER.Src
 						}
 						else
 						{
-							Erro("Erro ao gerar token.");
+							PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
 						}
 
 						break;
@@ -405,7 +405,7 @@ namespace DS_PLUS_COMPILER.Src
 						}
 						else
 						{
-							Erro("Erro ao gerar token.");
+							PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
 						}
 
 						break;
@@ -418,7 +418,7 @@ namespace DS_PLUS_COMPILER.Src
 						}
 						else
 						{
-							Erro("Erro ao gerar token.");
+							PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
 						}
 
 						break;
@@ -431,7 +431,7 @@ namespace DS_PLUS_COMPILER.Src
 						}
 						else
 						{
-							Erro("Erro ao gerar token.");
+							PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
 						}
 
 						break;
@@ -447,7 +447,7 @@ namespace DS_PLUS_COMPILER.Src
 								this.Estado = 27;
 								break;
                             default:
-								Erro("Erro ao gerar token.");
+								PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
 								break;
 						}
 
@@ -461,7 +461,7 @@ namespace DS_PLUS_COMPILER.Src
 						}
 						else
 						{
-							Erro("Erro ao gerar token.");
+							PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
 						}
 
 						break;
@@ -474,7 +474,7 @@ namespace DS_PLUS_COMPILER.Src
 						}
 						else
 						{
-							Erro("Erro ao gerar token.");
+							PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
 						}
 
 						break;
@@ -487,7 +487,7 @@ namespace DS_PLUS_COMPILER.Src
 						}
 						else
 						{
-							Erro("Erro ao gerar token.");
+							PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
 						}
 
 						break;
@@ -500,7 +500,7 @@ namespace DS_PLUS_COMPILER.Src
 						}
 						else
 						{
-							Erro("Erro ao gerar token.");
+							PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
 						}
 
 						break;
@@ -516,7 +516,7 @@ namespace DS_PLUS_COMPILER.Src
 								InsertToken(Enums.Tokens.PR_IF);
 								break;
 							default:
-								Erro("Erro ao gerar token.");
+								PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
 								break;
 						}
 
@@ -530,7 +530,7 @@ namespace DS_PLUS_COMPILER.Src
 						}
 						else
 						{
-							Erro("Erro ao gerar token.");
+							PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
 						}
 
 						break;					
@@ -543,7 +543,7 @@ namespace DS_PLUS_COMPILER.Src
 						}
 						else
 						{
-							Erro("Erro ao gerar token.");
+							PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
 						}
 
 						break;
@@ -556,7 +556,7 @@ namespace DS_PLUS_COMPILER.Src
 						}
 						else
 						{
-							Erro("Erro ao gerar token.");
+							PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
 						}
 
 						break;
@@ -569,7 +569,7 @@ namespace DS_PLUS_COMPILER.Src
 						}
 						else
 						{
-							Erro("Erro ao gerar token.");
+							PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
 						}
 
 						break;
@@ -582,7 +582,7 @@ namespace DS_PLUS_COMPILER.Src
 						}
 						else
 						{
-							Erro("Erro ao gerar token.");
+							PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
 						}
 
 						break;
@@ -595,7 +595,7 @@ namespace DS_PLUS_COMPILER.Src
 						}
 						else
 						{
-							Erro("Erro ao gerar token.");
+							PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
 						}
 
 						break;
@@ -608,7 +608,7 @@ namespace DS_PLUS_COMPILER.Src
 						}
 						else
 						{
-							Erro("Erro ao gerar token.");
+							PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
 						}
 
 						break;
@@ -621,7 +621,7 @@ namespace DS_PLUS_COMPILER.Src
 						}
 						else
 						{
-							Erro("Erro ao gerar token.");
+							PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
 						}
 
 						break;
@@ -634,7 +634,7 @@ namespace DS_PLUS_COMPILER.Src
 						}
 						else
 						{
-							Erro("Erro ao gerar token.");
+							PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
 						}
 
 						break;
@@ -647,7 +647,7 @@ namespace DS_PLUS_COMPILER.Src
 						}
 						else
 						{
-							Erro("Erro ao gerar token.");
+							PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
 						}
 
 						break;
@@ -663,7 +663,7 @@ namespace DS_PLUS_COMPILER.Src
 								this.Estado = 45;
 								break;
 							default:
-								Erro("Erro ao gerar token.");
+								PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
 								break;
 						}
 
@@ -677,7 +677,7 @@ namespace DS_PLUS_COMPILER.Src
 						}
 						else
 						{
-							Erro("Erro ao gerar token.");
+							PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
 						}
 
 						break;
@@ -690,7 +690,7 @@ namespace DS_PLUS_COMPILER.Src
 						}
 						else
 						{
-							Erro("Erro ao gerar token.");
+							PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
 						}
 
 						break;
@@ -703,7 +703,7 @@ namespace DS_PLUS_COMPILER.Src
 						}
 						else
 						{
-							Erro("Erro ao gerar token.");
+							PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
 						}
 
 						break;
@@ -716,7 +716,7 @@ namespace DS_PLUS_COMPILER.Src
 						}
 						else
 						{
-							Erro("Erro ao gerar token.");
+							PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
 						}
 
 						break;
@@ -729,7 +729,7 @@ namespace DS_PLUS_COMPILER.Src
 						}
 						else
 						{
-							Erro("Erro ao gerar token.");
+							PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
 						}
 
 						break;
@@ -742,7 +742,7 @@ namespace DS_PLUS_COMPILER.Src
 						}
 						else
 						{
-							Erro("Erro ao gerar token.");
+							PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
 						}
 
 						break;
@@ -755,7 +755,7 @@ namespace DS_PLUS_COMPILER.Src
 						}
 						else
 						{
-							Erro("Erro ao gerar token.");
+							PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
 						}
 
 						break;
@@ -768,7 +768,7 @@ namespace DS_PLUS_COMPILER.Src
 						}
 						else
 						{
-							Erro("Erro ao gerar token.");
+							PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
 						}
 
 						break;
@@ -781,7 +781,7 @@ namespace DS_PLUS_COMPILER.Src
 						}
 						else
 						{
-							Erro("Erro ao gerar token.");
+							PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
 						}
 
 						break;
@@ -794,7 +794,7 @@ namespace DS_PLUS_COMPILER.Src
 						}
 						else
 						{
-							Erro("Erro ao gerar token.");
+							PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
 						}
 
 						break;
@@ -807,7 +807,7 @@ namespace DS_PLUS_COMPILER.Src
 						}
 						else
 						{
-							Erro("Erro ao gerar token.");
+							PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
 						}
 
 						break;
@@ -820,7 +820,7 @@ namespace DS_PLUS_COMPILER.Src
 						}
 						else
 						{
-							Erro("Erro ao gerar token.");
+							PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
 						}
 
 						break;
@@ -833,7 +833,7 @@ namespace DS_PLUS_COMPILER.Src
 						}
 						else
 						{
-							Erro("Erro ao gerar token.");
+							PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
 						}
 
 						break;
@@ -846,7 +846,7 @@ namespace DS_PLUS_COMPILER.Src
 						}
 						else
 						{
-							Erro("Erro ao gerar token.");
+							PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
 						}
 
 						break;
@@ -859,7 +859,7 @@ namespace DS_PLUS_COMPILER.Src
 						}
 						else
 						{
-							Erro("Erro ao gerar token.");
+							PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
 						}
 
 						break;
@@ -872,7 +872,7 @@ namespace DS_PLUS_COMPILER.Src
 						}
 						else
 						{
-							Erro("Erro ao gerar token.");
+							PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
 						}
 
 						break;
@@ -926,9 +926,9 @@ namespace DS_PLUS_COMPILER.Src
 			return isAlpha;
 		}
 
-		private void Erro(string erro)
+		private void PrintMessage(string tipo, string erro, string lexema)
 		{
-			Console.WriteLine(erro);
+			Console.WriteLine(string.Format("'{0}': {1}, Lexema: {2}", tipo, erro, lexema));
 		}
 
 		public string PrintAnalise() 
