@@ -24,6 +24,8 @@ namespace DS_PLUS_COMPILER
             //gera arquivo de log
             fileReader.PrintFile(lexicoPrint);
 
+            //Cria o analisador sintatico e utiliza a lista de tokens gerados no lexico
+
             Console.ReadKey();
         }
     }

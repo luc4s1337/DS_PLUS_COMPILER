@@ -1,0 +1,44 @@
+---------- (INICIO) PRINT LEXICO ---------------
+
+              LEXEMA                                   TOKEN
+
+|             void                          |          PR_VOID
+|             main                          |          PR_MAIN
+|             (                             |          ABRE_PARENTESES
+|             )                             |          FECHA_PARENTESES
+|             {                             |          ABRE_CHAVES
+|             string                        |          PR_STR
+|             _teste                        |          ID
+|             =                             |          OP_ATRI
+|             "teste de string"             |          LIT_STR
+|             ;                             |          PONTO_VIRGULA
+|             int                           |          PR_INT
+|             _inteiro                      |          ID
+|             =                             |          OP_ATRI
+|             45                            |          LIT_INT
+|             ;                             |          PONTO_VIRGULA
+|             float                         |          PR_FLT
+|             _real                         |          ID
+|             =                             |          OP_ATRI
+|             45.45                         |          LIT_FLT
+|             ;                             |          PONTO_VIRGULA
+|             int                           |          PR_INT
+|             _int2                         |          ID
+|             ;                             |          PONTO_VIRGULA
+|             _int2                         |          ID
+|             =                             |          OP_ATRI
+|             _inteiro                      |          ID
+|             +                             |          OP_SOMA
+|             _real                         |          ID
+|             ;                             |          PONTO_VIRGULA
+|             print                         |          PR_PRINT
+|             (                             |          ABRE_PARENTESES
+|             _int2                         |          ID
+|             )                             |          FECHA_PARENTESES
+|             ;                             |          PONTO_VIRGULA
+|             }                             |          FECHA_CHAVES
+|                                           |          FIM
+
+
+-------- (FIM) PRINT LEXICO ---------------
+

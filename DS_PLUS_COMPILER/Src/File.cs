@@ -30,10 +30,12 @@ namespace DS_PLUS_COMPILER.Utils
             this.Buffer = streamReader.ReadToEnd();
         }
 
-        //TODO
         public void PrintFile(string print) 
         {
-
+            using (StreamWriter sw = System.IO.File.CreateText(Config.OutputPath+"LexicoLog.txt"))
+            {
+                sw.Write(print);
+            }
         }
     }
 }

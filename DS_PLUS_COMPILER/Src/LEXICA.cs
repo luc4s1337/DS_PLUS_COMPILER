@@ -39,8 +39,56 @@ namespace DS_PLUS_COMPILER.Src
 						{
 							if (IsAlpha(ch))
 							{
-								//Palavras reservadas
-								this.Estado = 11;
+								this.LexemaAtual += ch;
+
+								//palavras reservadas
+								switch (ch)
+								{
+									//bool
+									case 'b':
+										this.Estado = 12;
+										break;
+									//char
+									case 'c':
+										this.Estado = 16;
+										break;
+									//else
+									case 'e':
+										this.Estado = 20;
+										break;
+									//for, float
+									case 'f':
+										this.Estado = 23;
+										break;
+									//if, int
+									case 'i':
+										this.Estado = 28;
+										break;
+									//main
+									case 'm':
+										this.Estado = 56;
+										break;
+									//print
+									case 'p':
+										this.Estado = 32;
+										break;
+									//return
+									case 'r':
+										this.Estado = 36;
+										break;
+									//scan, string
+									case 's':
+										this.Estado = 41;
+										break;
+									//void
+									case 'v':
+										this.Estado = 49;
+										break;
+									//while
+									case 'w':
+										this.Estado = 52;
+										break;
+								}
 							}
 							else
 							{
@@ -150,10 +198,10 @@ namespace DS_PLUS_COMPILER.Src
 										this.Estado = 9;
 
 										break;
-									case '\t':
-										break;
-									case '\0':
-										break;
+									case '\t':										
+									case '\0':										
+									case '\r':
+									case '\n':
 									case ' ':
 										break;
                                     default:
@@ -260,56 +308,6 @@ namespace DS_PLUS_COMPILER.Src
 					case 10:
 						this.LexemaAtual += ch;
 						InsertToken(Enums.Tokens.LIT_STR);
-						break;
-
-					//PALAVRAS RESERVADAS
-					case 11:
-						this.LexemaAtual += ch;
-
-						switch (ch)
-						{
-							//bool
-							case 'b':
-								this.Estado = 12;
-								break;
-							//char
-							case 'c':
-								this.Estado = 16;
-								break;
-							//else
-							case 'e':
-								this.Estado = 20;
-								break;
-							//for, float
-							case 'f':
-								this.Estado = 23;
-								break;
-							//if, int
-							case 'i':
-								this.Estado = 28;
-								break;
-							//print
-							case 'p':
-								this.Estado = 32;
-								break;
-							//return
-							case 'r':
-								this.Estado = 36;
-								break;
-							//scan, string
-							case 's':
-								this.Estado = 41;
-								break;
-							//void
-							case 'v':
-								this.Estado = 49;
-								break;
-							//while
-							case 'w':
-								this.Estado = 52;
-								break;
-						}
-					
 						break;
 					case 13:
 						this.LexemaAtual += ch;
@@ -515,7 +513,7 @@ namespace DS_PLUS_COMPILER.Src
 								this.Estado = 29;
 								break;
 							case 'f':
-								this.Estado = 31;
+								InsertToken(Enums.Tokens.PR_IF);
 								break;
 							default:
 								Erro("Erro ao gerar token.");
@@ -528,19 +526,6 @@ namespace DS_PLUS_COMPILER.Src
 
 						if (ch == 't')
 						{
-							this.Estado = 30;
-						}
-						else
-						{
-							Erro("Erro ao gerar token.");
-						}
-
-						break;
-					case 30:
-						this.LexemaAtual += ch;
-
-						if (ch == 'r')
-						{
 							InsertToken(Enums.Tokens.PR_INT);
 						}
 						else
@@ -548,20 +533,7 @@ namespace DS_PLUS_COMPILER.Src
 							Erro("Erro ao gerar token.");
 						}
 
-						break;
-					case 31:
-						this.LexemaAtual += ch;
-
-						if (ch == 'f')
-						{
-							InsertToken(Enums.Tokens.PR_IF);
-						}
-						else
-						{
-							Erro("Erro ao gerar token.");
-						}
-
-						break;
+						break;					
 					case 32:
 						this.LexemaAtual += ch;
 
@@ -737,7 +709,7 @@ namespace DS_PLUS_COMPILER.Src
 						break;
 					case 46:
 						this.LexemaAtual += ch;
-
+						
 						if (ch == 'i')
 						{
 							this.Estado = 47;
@@ -865,6 +837,45 @@ namespace DS_PLUS_COMPILER.Src
 						}
 
 						break;
+					case 56:
+						this.LexemaAtual += ch;
+
+						if (ch == 'a')
+						{
+							this.Estado = 57;
+						}
+						else
+						{
+							Erro("Erro ao gerar token.");
+						}
+
+						break;
+					case 57:
+						this.LexemaAtual += ch;
+
+						if (ch == 'i')
+						{
+							this.Estado = 58;
+						}
+						else
+						{
+							Erro("Erro ao gerar token.");
+						}
+
+						break;
+					case 58:
+						this.LexemaAtual += ch;
+
+						if (ch == 'n')
+						{
+							InsertToken(Enums.Tokens.PR_MAIN);
+						}
+						else
+						{
+							Erro("Erro ao gerar token.");
+						}
+
+						break;
 				}
 
 				this.BufferIndex++;
@@ -925,20 +936,20 @@ namespace DS_PLUS_COMPILER.Src
 			string print = "---------- (INICIO) PRINT LEXICO ---------------\n\n";
 
 
-			print += "         LEXEMA";
-			print += "               TOKEN\n\n";
+			print += "              LEXEMA";
+			print += "                                   TOKEN\n\n";
 
 			foreach (var item in this.Tokens) 
 			{
-				print += "|        ";
+				print += "|             ";
 				print += item.Lexema;
 
-                for (int i = 0; i < 15 - item.Lexema.Length; i++)
+                for (int i = 0; i < 30 - item.Lexema.Length; i++)
 				{
 					print += " ";
 				}
 
-			print += "|     " +item.TokenCodigo+ "\n";
+			print += "|          " +item.TokenCodigo+      "\n";
 			}
 
 			print +="\n\n-------- (FIM) PRINT LEXICO ---------------\n\n";

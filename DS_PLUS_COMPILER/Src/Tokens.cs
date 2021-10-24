@@ -25,7 +25,8 @@ namespace DS_PLUS_COMPILER.Src
             PR_FOR, //done
             PR_FLT, //done
             PR_IF, //done
-            PR_INT, //done         
+            PR_INT, //done
+            PR_MAIN, //done
             PR_PRINT, //done
             PR_RTN, //done
             PR_SCN, //done
