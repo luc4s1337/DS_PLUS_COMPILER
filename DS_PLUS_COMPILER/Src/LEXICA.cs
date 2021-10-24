@@ -935,7 +935,6 @@ namespace DS_PLUS_COMPILER.Src
 		{
 			string print = "---------- (INICIO) PRINT LEXICO ---------------\n\n";
 
-
 			print += "              LEXEMA";
 			print += "                                   TOKEN\n\n";
 
@@ -949,7 +948,7 @@ namespace DS_PLUS_COMPILER.Src
 					print += " ";
 				}
 
-			print += "|          " +item.TokenCodigo+      "\n";
+				print += "|          " +item.TokenCodigo+      "\n";
 			}
 
 			print +="\n\n-------- (FIM) PRINT LEXICO ---------------\n\n";

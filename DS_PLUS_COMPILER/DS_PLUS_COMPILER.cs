@@ -17,14 +17,22 @@ namespace DS_PLUS_COMPILER
             //Cria o analisador lexico com o buffer do arquivo de entrada
             LEXICA analisadorLexico = new(fileReader.Buffer);
 
-            //Inicia a analise
+            //Inicia a analise lexica
             analisadorLexico.StartAnaliseLexica();
             string lexicoPrint = analisadorLexico.PrintAnalise();
 
-            //gera arquivo de log
-            fileReader.PrintFile(lexicoPrint);
+            //Gera arquivo de log da analise lexica
+            fileReader.PrintFile(lexicoPrint, "AnaliseLexicaLog.txt");
 
             //Cria o analisador sintatico e utiliza a lista de tokens gerados no lexico
+            SINTATICO analisadorSintatico = new(analisadorLexico.Tokens);
+
+            //Inicia a analise sintatica
+            analisadorSintatico.StartAnaliseSintatica();
+            string sintaticoPrint = analisadorSintatico.PrintAnalise();
+
+            //Gera arquivo de log da analise sintatica
+            fileReader.PrintFile(sintaticoPrint, "AnaliseSintaticoLog.txt");
 
             Console.ReadKey();
         }
