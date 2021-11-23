@@ -6,30 +6,30 @@ using System.Threading.Tasks;
 
 namespace DS_PLUS_COMPILER.Src
 {
-    class SINTATICO
+    class SINTATICO_SEMANTICO
     {
         public List<Token> Tokens { get; set; }
         public int TokensIndex { get; set; } = 0;
 
-        public SINTATICO(List<Token> _tokens) 
+        public SINTATICO_SEMANTICO(List<Token> _tokens)
         {
             this.Tokens = _tokens;
         }
 
-        public void StartAnaliseSintatica() 
+        public void StartAnaliseSintaticaSemantica()
         {
             if (Tokens[TokensIndex].TokenCodigo == Enums.Tokens.PR_VOID)
             {
                 TokensIndex++;
-                Main();                
+                Programa();
             }
-            else 
+            else
             {
                 Erro("void", "Main", Tokens[TokensIndex].Lexema);
-            }                
+            }
         }
 
-        private void Main() 
+        private void Programa()
         {
             if (Tokens[TokensIndex].TokenCodigo == Enums.Tokens.PR_MAIN)
             {
@@ -64,10 +64,10 @@ namespace DS_PLUS_COMPILER.Src
                         Erro(")", "Main", Tokens[TokensIndex].Lexema);
                     }
                 }
-                else 
+                else
                 {
                     Erro("(", "Main", Tokens[TokensIndex].Lexema);
-                }                                
+                }
             }
             else
             {
@@ -76,20 +76,26 @@ namespace DS_PLUS_COMPILER.Src
         }
 
         private void Bloco()
-        { 
+        {
         }
 
-        private void Validado(string bloco) 
+        private void Validado(string bloco)
         {
             Console.WriteLine(string.Format("Bloco {0} validado com sucesso.", bloco));
         }
 
-        private void Erro(string esperado, string estrutura, string lexema) 
+        private void Erro(string esperado, string estrutura, string lexema)
         {
             Console.WriteLine(string.Format("Erro na estrutura {1}, Esperado '{0}' encontrado o token '{2}'.", esperado, estrutura, lexema));
+
         }
 
-        public string PrintAnalise()
+        public string PrintAnaliseSemantica() 
+        {
+            return "";
+        }
+
+        public string PrintAnaliseSintatica()
         {
             return "";
         }

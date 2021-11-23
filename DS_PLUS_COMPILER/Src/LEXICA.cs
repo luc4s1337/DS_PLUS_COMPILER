@@ -52,6 +52,10 @@ namespace DS_PLUS_COMPILER.Src
 									case 'c':
 										this.Estado = 16;
 										break;
+									//do
+									case 'd':
+										this.Estado = 63;
+										break;
 									//else
 									case 'e':
 										this.Estado = 20;
@@ -68,6 +72,10 @@ namespace DS_PLUS_COMPILER.Src
 									case 'm':
 										this.Estado = 56;
 										break;
+									//loop
+									case 'l':
+										this.Estado = 64;
+										break;
 									//print
 									case 'p':
 										this.Estado = 32;
@@ -79,6 +87,10 @@ namespace DS_PLUS_COMPILER.Src
 									//scan, string
 									case 's':
 										this.Estado = 41;
+										break;
+									//then
+									case 't':
+										this.Estado = 60;
 										break;
 									//void
 									case 'v':
@@ -96,7 +108,7 @@ namespace DS_PLUS_COMPILER.Src
 								{
 									//ID
 									case '_':
-										this.LexemaAtual += ch;										
+										this.LexemaAtual += ch;
 										this.Estado = 19;
 
 										break;
@@ -198,13 +210,13 @@ namespace DS_PLUS_COMPILER.Src
 										this.Estado = 9;
 
 										break;
-									case '\t':										
-									case '\0':										
+									case '\t':
+									case '\0':
 									case '\r':
 									case '\n':
 									case ' ':
 										break;
-                                    default:
+									default:
 										PrintMessage("Erro", "Caractere inválido.", this.LexemaAtual);
 										break;
 								}
@@ -219,31 +231,31 @@ namespace DS_PLUS_COMPILER.Src
 						{
 							this.Estado = 2;
 						}
-						else 
+						else
 						{
 							//se o proximo caractere nao for um numero, gera o token
 							if (!IsDigit(this.Buffer[this.BufferIndex + 1]))
 								InsertToken(Enums.Tokens.LIT_INT);
-						}						
+						}
 
 						break;
 					case 2:
 						this.LexemaAtual += ch;
 
-						if (IsDigit(ch)) 
+						if (IsDigit(ch))
 						{
 							if (!IsDigit(this.Buffer[this.BufferIndex + 1]) && this.Buffer[this.BufferIndex + 1] != '.')
 								InsertToken(Enums.Tokens.LIT_FLT);
-						}						
+						}
 
 						break;
 					case 3:
-						if(ch == '=')
+						if (ch == '=')
 						{
 							this.LexemaAtual += ch;
 							InsertToken(Enums.Tokens.OP_IGUAL);
 						}
-                        else
+						else
 						{
 							PrintMessage("Erro", "Operador inválido.", this.LexemaAtual);
 						}
@@ -253,8 +265,8 @@ namespace DS_PLUS_COMPILER.Src
 						{
 							this.LexemaAtual += ch;
 							InsertToken(Enums.Tokens.OP_DIFERENTE);
-                        }
-						else{
+						}
+						else {
 							PrintMessage("Erro", "Operador inválido.", this.LexemaAtual);
 						}
 						break;
@@ -280,22 +292,22 @@ namespace DS_PLUS_COMPILER.Src
 							PrintMessage("Erro", "Operador inválido.", this.LexemaAtual);
 						}
 						break;
-					case 7:						
+					case 7:
 						this.LexemaAtual += ch;
 
-						if (this.Buffer[BufferIndex+1] == '\'')
+						if (this.Buffer[BufferIndex + 1] == '\'')
 						{
 							this.Estado = 8;
 						}
-						else 
+						else
 						{
 							PrintMessage("Erro", "Char inválido.", this.LexemaAtual);
-						}						
-						
+						}
+
 						break;
 					case 8:
 						this.LexemaAtual += ch;
-						InsertToken(Enums.Tokens.LIT_CHAR);					
+						InsertToken(Enums.Tokens.LIT_CHAR);
 						break;
 					case 9:
 						this.LexemaAtual += ch;
@@ -303,7 +315,7 @@ namespace DS_PLUS_COMPILER.Src
 						if (this.Buffer[BufferIndex + 1] == '"')
 						{
 							this.Estado = 10;
-						}						
+						}
 						break;
 					case 10:
 						this.LexemaAtual += ch;
@@ -390,7 +402,7 @@ namespace DS_PLUS_COMPILER.Src
 					case 19:
 						this.LexemaAtual += ch;
 
-						if (!IsDigit(this.Buffer[this.BufferIndex+1]) && !IsAlpha(this.Buffer[this.BufferIndex + 1]))
+						if (!IsDigit(this.Buffer[this.BufferIndex + 1]) && !IsAlpha(this.Buffer[this.BufferIndex + 1]))
 						{
 							InsertToken(Enums.Tokens.ID);
 						}
@@ -399,20 +411,24 @@ namespace DS_PLUS_COMPILER.Src
 					case 20:
 						this.LexemaAtual += ch;
 
-						if (ch == 'l')
+						switch (ch)
 						{
-							this.Estado = 21;
-						}
-						else
-						{
-							PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
+							case 'l':
+								this.Estado = 22;
+								break;
+							case 'n':
+								this.Estado = 30;
+								break;
+							default:
+								PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
+								break;
 						}
 
 						break;
 					case 21:
 						this.LexemaAtual += ch;
 
-						if (ch == 's')
+						if (ch == 's') 
 						{
 							this.Estado = 22;
 						}
@@ -420,7 +436,7 @@ namespace DS_PLUS_COMPILER.Src
 						{
 							PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
 						}
-
+						
 						break;
 					case 22:
 						this.LexemaAtual += ch;
@@ -533,7 +549,20 @@ namespace DS_PLUS_COMPILER.Src
 							PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
 						}
 
-						break;					
+						break;
+					case 30:
+						this.LexemaAtual += ch;
+
+						if (ch == 'd')
+						{
+							InsertToken(Enums.Tokens.PR_END);
+						}
+						else
+						{
+							PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
+						}
+
+						break;
 					case 32:
 						this.LexemaAtual += ch;
 
@@ -876,9 +905,100 @@ namespace DS_PLUS_COMPILER.Src
 						}
 
 						break;
+					case 60:
+						this.LexemaAtual += ch;
+
+						if (ch == 'h')
+						{
+							this.Estado = 61;
+						}
+						else
+						{
+							PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
+						}
+
+						break;
+					case 61:
+						this.LexemaAtual += ch;
+
+						if (ch == 'e')
+						{
+							this.Estado = 62;
+						}
+						else
+						{
+							PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
+						}
+
+						break;
+					case 62:
+						this.LexemaAtual += ch;
+
+						if (ch == 'n')
+						{
+							InsertToken(Enums.Tokens.PR_THEN);
+						}
+						else
+						{
+							PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
+						}
+
+						break;
+					case 63:
+						this.LexemaAtual += ch;
+
+						if (ch == 'o')
+						{
+							InsertToken(Enums.Tokens.PR_DO);
+						}
+						else
+						{
+							PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
+						}
+
+						break;
+					case 64:
+						this.LexemaAtual += ch;
+
+						if (ch == 'o')
+						{
+							this.Estado = 65;
+						}
+						else
+						{
+							PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
+                        }
+
+                        break;
+					case 65:
+						this.LexemaAtual += ch;
+
+						if (ch == 'o')
+						{
+							this.Estado = 66;
+						}
+						else
+						{
+							PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
+						}
+
+						break;
+					case 66:
+						this.LexemaAtual += ch;
+
+						if (ch == 'p')
+						{
+							InsertToken(Enums.Tokens.PR_LOOP);
+						}
+						else
+						{
+							PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
+						}
+
+						break;
 				}
 
-				this.BufferIndex++;
+                this.BufferIndex++;
 			}
 
 			Acabou();

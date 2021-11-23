@@ -2,11 +2,9 @@
 
               LEXEMA                                   TOKEN
 
-|             void                          |          PR_VOID
 |             main                          |          PR_MAIN
 |             (                             |          ABRE_PARENTESES
 |             )                             |          FECHA_PARENTESES
-|             {                             |          ABRE_CHAVES
 |             string                        |          PR_STR
 |             _teste                        |          ID
 |             =                             |          OP_ATRI
@@ -36,7 +34,7 @@
 |             _int2                         |          ID
 |             )                             |          FECHA_PARENTESES
 |             ;                             |          PONTO_VIRGULA
-|             }                             |          FECHA_CHAVES
+|             end                           |          PR_END
 |                                           |          FIM
 
 

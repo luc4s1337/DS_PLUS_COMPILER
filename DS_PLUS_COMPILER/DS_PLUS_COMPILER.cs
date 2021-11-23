@@ -7,7 +7,7 @@ namespace DS_PLUS_COMPILER
 
     class DS_PLUS_COMPILER
     {      
-        static void Main(string[] args)
+        static int Main(string[] args)
         {
             Console.WriteLine(string.Format("BEM VINDO AO {0}! \n\n", Config.Aplicacao));
 
@@ -25,16 +25,19 @@ namespace DS_PLUS_COMPILER
             fileReader.PrintFile(lexicoPrint, "AnaliseLexicaLog.txt");
 
             //Cria o analisador sintatico e utiliza a lista de tokens gerados no lexico
-            SINTATICO analisadorSintatico = new(analisadorLexico.Tokens);
+            SINTATICO_SEMANTICO analisadorSintaticoSemantico = new(analisadorLexico.Tokens);
 
             //Inicia a analise sintatica
-            analisadorSintatico.StartAnaliseSintatica();
-            string sintaticoPrint = analisadorSintatico.PrintAnalise();
+            analisadorSintaticoSemantico.StartAnaliseSintaticaSemantica();
+            string sintaticoPrint = analisadorSintaticoSemantico.PrintAnaliseSintatica();
+            string semanticaProint = analisadorSintaticoSemantico.PrintAnaliseSemantica();
 
             //Gera arquivo de log da analise sintatica
             fileReader.PrintFile(sintaticoPrint, "AnaliseSintaticoLog.txt");
 
             Console.ReadKey();
+
+            return 0;
         }
     }
 }
