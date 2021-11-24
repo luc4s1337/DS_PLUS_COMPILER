@@ -35,6 +35,7 @@ namespace DS_PLUS_COMPILER.Src
             PR_SCN, //done
             PR_STR, //done
             PR_THEN, //done
+            PR_VAR, //done
             PR_VOID, //done
             PR_WHILE, //done
             

@@ -9,9 +9,10 @@ namespace DS_PLUS_COMPILER.Src
 {
 	class LEXICA
 	{
-		public string Buffer { get; set; }
+        #region inicializacaoAnalisador
+        public string Buffer { get; set; }
 		public int BufferIndex { get; set; } = 0;
-        public List<Token> Tokens { get; set; }
+        public List<Token> Tokens { get; set; } = new List<Token>();
 
 		public int Estado { get; set; } = 0;
 
@@ -20,10 +21,11 @@ namespace DS_PLUS_COMPILER.Src
 		public LEXICA(string _buffer)
 		{
 			this.Buffer = _buffer.ToLower() + " ";
-			this.Tokens = new List<Token>();
 		}
+        #endregion
 
-		public void StartAnaliseLexica()
+        #region codigo
+        public void StartAnaliseLexica()
 		{
 			foreach (char ch in this.Buffer)
 			{
@@ -92,7 +94,7 @@ namespace DS_PLUS_COMPILER.Src
 									case 't':
 										this.Estado = 60;
 										break;
-									//void
+									//void, var
 									case 'v':
 										this.Estado = 49;
 										break;
@@ -778,13 +780,17 @@ namespace DS_PLUS_COMPILER.Src
 					case 49:
 						this.LexemaAtual += ch;
 
-						if (ch == 'o')
+						switch (ch) 
 						{
-							this.Estado = 50;
-						}
-						else
-						{
-							PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
+							case 'o':
+								this.Estado = 50;
+								break;
+							case 'a':
+								this.Estado = 67;
+								break;
+							default:
+								PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
+								break;
 						}
 
 						break;
@@ -996,6 +1002,19 @@ namespace DS_PLUS_COMPILER.Src
 						}
 
 						break;
+					case 67:
+						this.LexemaAtual += ch;
+
+						if (ch == 'r')
+						{
+							InsertToken(Enums.Tokens.PR_VAR);
+						}
+						else
+						{
+							PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
+						}
+
+						break;
 				}
 
                 this.BufferIndex++;
@@ -1003,8 +1022,10 @@ namespace DS_PLUS_COMPILER.Src
 
 			Acabou();
 		}
+        #endregion
 
-		private void InsertToken(Enums.Tokens _token)
+        #region funcoesBasicas
+        private void InsertToken(Enums.Tokens _token)
 		{
 			Token token = new(this.LexemaAtual);
 			token.TokenCodigo = _token;
@@ -1045,7 +1066,9 @@ namespace DS_PLUS_COMPILER.Src
 
 			return isAlpha;
 		}
+		#endregion
 
+		#region prints
 		private void PrintMessage(string tipo, string erro, string lexema)
 		{
 			Console.WriteLine(string.Format("'{0}': {1}, Lexema: {2}", tipo, erro, lexema));
@@ -1076,6 +1099,7 @@ namespace DS_PLUS_COMPILER.Src
 			Console.Write(print);
 
 			return print;
-		}		
-	}	
+		}
+        #endregion
+    }
 }

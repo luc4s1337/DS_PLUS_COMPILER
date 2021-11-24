@@ -22,6 +22,8 @@
 |             ;                             |          PONTO_VIRGULA
 |             int                           |          PR_INT
 |             _int2                         |          ID
+|             ,                             |          VIRGULA
+|             _int3                         |          ID
 |             ;                             |          PONTO_VIRGULA
 |             _int2                         |          ID
 |             =                             |          OP_ATRI
@@ -29,12 +31,22 @@
 |             +                             |          OP_SOMA
 |             _real                         |          ID
 |             ;                             |          PONTO_VIRGULA
-|             print                         |          PR_PRINT
-|             (                             |          ABRE_PARENTESES
-|             _int2                         |          ID
-|             )                             |          FECHA_PARENTESES
+|             if                            |          PR_IF
+|             _inteiro                      |          ID
+|             >                             |          OP_MAIOR
+|             _int                          |          ID
+|             2                             |          LIT_INT
+|             then                          |          PR_THEN
+|             _int3                         |          ID
+|             =                             |          OP_ATRI
+|             34                            |          LIT_INT
 |             ;                             |          PONTO_VIRGULA
 |             end                           |          PR_END
+|             print                         |          PR_PRINT
+|             (                             |          ABRE_PARENTESES
+|             _int3                         |          ID
+|             )                             |          FECHA_PARENTESES
+|             ;                             |          PONTO_VIRGULA
 |                                           |          FIM
 
 
