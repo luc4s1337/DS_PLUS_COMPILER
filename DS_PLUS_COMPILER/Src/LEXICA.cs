@@ -9,7 +9,7 @@ namespace DS_PLUS_COMPILER.Src
 {
 	class LEXICA
 	{
-        #region inicializacaoAnalisador
+        #region INICIALIZA
         public string Buffer { get; set; }
 		public int BufferIndex { get; set; } = 0;
         public List<Token> Tokens { get; set; } = new List<Token>();
@@ -24,7 +24,7 @@ namespace DS_PLUS_COMPILER.Src
 		}
         #endregion
 
-        #region codigo
+        #region CODIGO
         public void StartAnaliseLexica()
 		{
 			foreach (char ch in this.Buffer)
@@ -1022,10 +1022,10 @@ namespace DS_PLUS_COMPILER.Src
 
 			Acabou();
 		}
-        #endregion
+		#endregion
 
-        #region funcoesBasicas
-        private void InsertToken(Enums.Tokens _token)
+		#region FUNCOES_BASICAS
+		private void InsertToken(Enums.Tokens _token)
 		{
 			Token token = new(this.LexemaAtual);
 			token.TokenCodigo = _token;
@@ -1068,7 +1068,7 @@ namespace DS_PLUS_COMPILER.Src
 		}
 		#endregion
 
-		#region prints
+		#region PRINTS
 		private void PrintMessage(string tipo, string erro, string lexema)
 		{
 			Console.WriteLine(string.Format("'{0}': {1}, Lexema: {2}", tipo, erro, lexema));

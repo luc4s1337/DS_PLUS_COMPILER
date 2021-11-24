@@ -8,7 +8,7 @@ namespace DS_PLUS_COMPILER.Src
 {
     class SINTATICO
     {
-        #region inicializacao do analisador        
+        #region INICIALIZA       
         public List<Token> Tokens { get; set; }
         public int TokensIndex { get; set; } = 0;
         public string Log { get; set; } = "";        
@@ -23,8 +23,8 @@ namespace DS_PLUS_COMPILER.Src
             Programa();
         }
         #endregion
-
-        #region analiseSintaticaSemantica
+                
+        #region DECLARACAO
         public void Programa()
         {
             if (Tokens[TokensIndex].TokenCodigo == Enums.Tokens.PR_VAR || Tokens[TokensIndex].TokenCodigo == Enums.Tokens.PR_MAIN)
@@ -136,7 +136,9 @@ namespace DS_PLUS_COMPILER.Src
                 ListaCom();
             }                
         }
+        #endregion
 
+        #region COMANDOS
         private void ListaCom()
         {
             if (Tokens[TokensIndex].TokenCodigo == Enums.Tokens.PR_SCN ||
@@ -191,6 +193,7 @@ namespace DS_PLUS_COMPILER.Src
                     break;
             }
         }
+                
         private void ComSelec()
         {
             Exp();
@@ -369,13 +372,16 @@ namespace DS_PLUS_COMPILER.Src
                 Erro("=", "com-atr", Tokens[TokensIndex].Lexema);
             }
         }
-                               
+        #endregion
+
+        #region EXPRESSOES
         private void Exp()
         {
+
         }
         #endregion
 
-        #region prints
+        #region PRINTS
         private void Validado(string bloco, Enums.Tokens token)
         {
             string str = string.Format("Bloco {0} token {1} OK.\n\n", bloco, token);
