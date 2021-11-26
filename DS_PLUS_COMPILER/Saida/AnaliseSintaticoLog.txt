@@ -1,5 +1,98 @@
+-----------(INICIO)-PRINT-SINTATICO------------------
+
 | Bloco programa token main OK.
 | Bloco decl-main token ( OK.
 | Bloco decl-main token ) OK.
+| Bloco decl-var token var OK.
+| Bloco espec-tipo token int OK.
+| Bloco decl-var token _teste1 OK.
+| Bloco com-atr token = OK.
+| Bloco literal token 3 OK.
+| Bloco decl-var token , OK.
+| Bloco com-atr token _teste2 OK.
+| Bloco com-atr token = OK.
+| Bloco literal token 2 OK.
+| Bloco decl-var token ; OK.
+| Bloco decl-var token var OK.
+| Bloco espec-tipo token int OK.
+| Bloco decl-var token _teste3 OK.
+| Bloco decl-var token ; OK.
+| Bloco com-sel token if OK.
+| Bloco decl-var token _teste1 OK.
+| Bloco op-relac token > OK.
+| Bloco decl-var token _teste2 OK.
+| Bloco com-sel token then OK.
+| Bloco com-atr token _teste3 OK.
+| Bloco com-atr token = OK.
+| Bloco literal token 10 OK.
+| Bloco decl-var token ; OK.
+| Bloco com-sel token end OK.
+| Bloco com-sel token ; OK.
+| Bloco com-sel token if OK.
+| Bloco decl-var token _teste2 OK.
+| Bloco op-relac token > OK.
+| Bloco decl-var token _teste1 OK.
+| Bloco com-sel token then OK.
+| Bloco com-atr token _teste3 OK.
+| Bloco com-atr token = OK.
+| Bloco literal token 25 OK.
+| Bloco decl-var token ; OK.
+| Bloco com-sel token else OK.
+| Bloco com-atr token _teste3 OK.
+| Bloco com-atr token = OK.
+| Bloco literal token 1234 OK.
+| Bloco decl-var token ; OK.
+| Bloco com-sel token end OK.
+| Bloco com-sel token ; OK.
+| Bloco decl-var token var OK.
+| Bloco espec-tipo token float OK.
+| Bloco decl-var token _teste_float OK.
+| Bloco decl-var token ; OK.
+| Bloco com-lei token scan OK.
+| Bloco com-lei token ( OK.
+| Bloco decl-var token _teste_float OK.
+| Bloco com-lei token ) OK.
+| Bloco com-lei token ; OK.
+| Bloco decl-var token var OK.
+| Bloco espec-tipo token int OK.
+| Bloco decl-var token _i OK.
+| Bloco com-atr token = OK.
+| Bloco literal token 0 OK.
+| Bloco decl-var token ; OK.
+| Bloco com-rep token while OK.
+| Bloco decl-var token _i OK.
+| Bloco op-relac token < OK.
+| Bloco literal token 10 OK.
+| Bloco com-rep token do OK.
+| Bloco decl-var token var OK.
+| Bloco espec-tipo token int OK.
+| Bloco decl-var token _int_local OK.
+| Bloco com-atr token = OK.
+| Bloco literal token 34 OK.
+| Bloco decl-var token , OK.
+| Bloco com-atr token _int_local2 OK.
+| Bloco com-atr token = OK.
+| Bloco literal token 20 OK.
+| Bloco decl-var token ; OK.
+| Bloco decl-var token var OK.
+| Bloco espec-tipo token int OK.
+| Bloco decl-var token _int3 OK.
+| Bloco com-atr token = OK.
+| Bloco decl-var token _int_local OK.
+| Bloco op-soma token + OK.
+| Bloco decl-var token _int_local2 OK.
+| Bloco decl-var token ; OK.
+| Bloco com-esc token print OK.
+| Bloco com-esc token ( OK.
+| Bloco exp-simples token ( OK.
+| Bloco literal token "teste de looping" OK.
+| Bloco exp-simples token ) OK.
+| Bloco com-esc token ; OK.
+| Bloco com-rep token loop OK.
+| Bloco com-rep token ; OK.
 
-Erro na estrutura 'bloco', Esperado 'um dos seguintes comandos var, if, while, scan, print, Id' encontrado o token 'float'.
+PROGRAMA VÁLIDO!
+
+
+-----------(FIM)----PRINT-SINTATICO------------------
+

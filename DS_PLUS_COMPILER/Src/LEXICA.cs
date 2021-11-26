@@ -414,7 +414,9 @@ namespace DS_PLUS_COMPILER.Src
 					case 19:
 						this.LexemaAtual += ch;
 
-						if (!IsDigit(this.Buffer[this.BufferIndex + 1]) && !IsAlpha(this.Buffer[this.BufferIndex + 1]))
+						if (!IsDigit(this.Buffer[this.BufferIndex + 1]) &&
+							 !IsAlpha(this.Buffer[this.BufferIndex + 1]) &&
+							 this.Buffer[this.BufferIndex + 1] != '_')
 						{
 							InsertToken(Enums.Tokens.ID);
 						}
@@ -714,7 +716,7 @@ namespace DS_PLUS_COMPILER.Src
 
 						if (ch == 'a')
 						{
-							this.Estado = 43;
+							this.Estado = 44;
 						}
 						else
 						{

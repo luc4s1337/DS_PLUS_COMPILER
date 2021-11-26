@@ -1,0 +1,2 @@
+main()
+	float _teste;

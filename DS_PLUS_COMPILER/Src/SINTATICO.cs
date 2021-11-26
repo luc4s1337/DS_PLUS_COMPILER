@@ -22,11 +22,21 @@ namespace DS_PLUS_COMPILER.Src
 
         public void StartAnaliseSintatica()
         {
-            Console.WriteLine("-----------(INICIO)-PRINT-SINTATICO------------------\n\n");
+            string inicio = "-----------(INICIO)-PRINT-SINTATICO------------------\n\n";
+            Log += inicio;
+            Console.Write(inicio);
 
             Programa();
 
-            Console.WriteLine("\n\n-----------(FIM)----PRINT-SINTATICO------------------\n\n");
+            string valido = "\nPROGRAMA VÁLIDO!\n";
+            Log += valido;
+
+            Console.Write(valido);
+
+            string fim = "\n\n-----------(FIM)----PRINT-SINTATICO------------------\n\n";
+            Log += fim;
+
+            Console.Write(fim);
         }
         #endregion
                 
@@ -181,7 +191,10 @@ namespace DS_PLUS_COMPILER.Src
                 ListaCom();
             }
 
-            if (Tokens[TokensIndex].TokenCodigo != Enums.Tokens.FIM) 
+            if (Tokens[TokensIndex].TokenCodigo != Enums.Tokens.FIM &&
+                 Tokens[TokensIndex].TokenCodigo != Enums.Tokens.PR_END &&
+                 Tokens[TokensIndex].TokenCodigo != Enums.Tokens.PR_ELSE &&
+                 Tokens[TokensIndex].TokenCodigo != Enums.Tokens.PR_LOOP) 
             {
                 Erro("um dos seguintes comandos var, if, while, scan, print, Id", "bloco", Tokens[TokensIndex].Lexema);
             }
@@ -351,9 +364,11 @@ namespace DS_PLUS_COMPILER.Src
             if (Tokens[TokensIndex].TokenCodigo == Enums.Tokens.ABRE_PARENTESES)
             {
                 Validado("com-lei", Tokens[TokensIndex].Lexema);
+                TokensIndex++;
                 Var();
 
-                Validado("com-lei", Tokens[TokensIndex].Lexema);                
+                Validado("com-lei", Tokens[TokensIndex].Lexema);
+                TokensIndex++;
 
                 if (Tokens[TokensIndex].TokenCodigo == Enums.Tokens.PONTO_VIRGULA)
                 {
@@ -376,9 +391,7 @@ namespace DS_PLUS_COMPILER.Src
             if (Tokens[TokensIndex].TokenCodigo == Enums.Tokens.ABRE_PARENTESES)
             {
                 Validado("com-esc", Tokens[TokensIndex].Lexema);
-                Exp();
-
-                Validado("com-esc", Tokens[TokensIndex].Lexema);                 
+                Exp();     
 
                 if (Tokens[TokensIndex].TokenCodigo == Enums.Tokens.PONTO_VIRGULA)
                 {
