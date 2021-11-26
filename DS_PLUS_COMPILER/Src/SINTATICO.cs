@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DS_PLUS_COMPILER.Src;
+using DS_PLUS_COMPILER.Utils;
 
 namespace DS_PLUS_COMPILER.Src
 {
@@ -174,10 +176,14 @@ namespace DS_PLUS_COMPILER.Src
             Tokens[TokensIndex].TokenCodigo == Enums.Tokens.PR_IF ||
             Tokens[TokensIndex].TokenCodigo == Enums.Tokens.PR_WHILE ||
             Tokens[TokensIndex].TokenCodigo == Enums.Tokens.PR_VAR ||
-            Tokens[TokensIndex].TokenCodigo == Enums.Tokens.ID ||
-            Tokens[TokensIndex].TokenCodigo == Enums.Tokens.PR_END)
+            Tokens[TokensIndex].TokenCodigo == Enums.Tokens.ID)
             {
                 ListaCom();
+            }
+
+            if (Tokens[TokensIndex].TokenCodigo != Enums.Tokens.FIM) 
+            {
+                Erro("um dos seguintes comandos var, if, while, scan, print, Id", "bloco", Tokens[TokensIndex].Lexema);
             }
         }
         #endregion
@@ -190,12 +196,11 @@ namespace DS_PLUS_COMPILER.Src
               Tokens[TokensIndex].TokenCodigo == Enums.Tokens.PR_IF ||
               Tokens[TokensIndex].TokenCodigo == Enums.Tokens.PR_WHILE ||
               Tokens[TokensIndex].TokenCodigo == Enums.Tokens.PR_VAR ||
-              Tokens[TokensIndex].TokenCodigo == Enums.Tokens.ID ||
-              Tokens[TokensIndex].TokenCodigo == Enums.Tokens.PR_END)
+              Tokens[TokensIndex].TokenCodigo == Enums.Tokens.ID)
             {
                 Comando();
                 ListaCom();
-            }          
+            }
         }
 
         private void Comando()
@@ -282,6 +287,17 @@ namespace DS_PLUS_COMPILER.Src
                     case Enums.Tokens.PR_END:
                         Validado("com-sel", Tokens[TokensIndex].Lexema);
                         TokensIndex++;
+
+                        if (Tokens[TokensIndex].TokenCodigo == Enums.Tokens.PONTO_VIRGULA)
+                        {
+                            Validado("com-sel", Tokens[TokensIndex].Lexema);
+                            TokensIndex++;
+                        }
+                        else
+                        {
+                            Erro(";", "com-sel", Tokens[TokensIndex].Lexema);
+                        }
+                        
                         break;
                     default:
                         Erro("else ou end", "com-sel", Tokens[TokensIndex].Lexema);
@@ -307,6 +323,7 @@ namespace DS_PLUS_COMPILER.Src
                 if (Tokens[TokensIndex].TokenCodigo == Enums.Tokens.PR_LOOP)
                 {
                     Validado("com-rep", Tokens[TokensIndex].Lexema);
+                    TokensIndex++;
 
                     if (Tokens[TokensIndex].TokenCodigo == Enums.Tokens.PONTO_VIRGULA)
                     {
@@ -336,24 +353,16 @@ namespace DS_PLUS_COMPILER.Src
                 Validado("com-lei", Tokens[TokensIndex].Lexema);
                 Var();
 
-                if (Tokens[TokensIndex].TokenCodigo == Enums.Tokens.FECHA_PARENTESES)
+                Validado("com-lei", Tokens[TokensIndex].Lexema);                
+
+                if (Tokens[TokensIndex].TokenCodigo == Enums.Tokens.PONTO_VIRGULA)
                 {
                     Validado("com-lei", Tokens[TokensIndex].Lexema);
-                    TokensIndex++;                    
-
-                    if (Tokens[TokensIndex].TokenCodigo == Enums.Tokens.PONTO_VIRGULA)
-                    {
-                        Validado("com-lei", Tokens[TokensIndex].Lexema);
-                        TokensIndex++;
-                    }
-                    else
-                    {
-                        Erro(";", "com-lei", Tokens[TokensIndex].Lexema);
-                    }
+                    TokensIndex++;
                 }
                 else
                 {
-                    Erro(")", "com-lei", Tokens[TokensIndex].Lexema);
+                    Erro(";", "com-lei", Tokens[TokensIndex].Lexema);
                 }
             }
             else
@@ -369,24 +378,16 @@ namespace DS_PLUS_COMPILER.Src
                 Validado("com-esc", Tokens[TokensIndex].Lexema);
                 Exp();
 
-                if (Tokens[TokensIndex].TokenCodigo == Enums.Tokens.FECHA_PARENTESES)
+                Validado("com-esc", Tokens[TokensIndex].Lexema);                 
+
+                if (Tokens[TokensIndex].TokenCodigo == Enums.Tokens.PONTO_VIRGULA)
                 {
                     Validado("com-esc", Tokens[TokensIndex].Lexema);
-                    TokensIndex++;                    
-
-                    if (Tokens[TokensIndex].TokenCodigo == Enums.Tokens.PONTO_VIRGULA)
-                    {
-                        Validado("com-esc", Tokens[TokensIndex].Lexema);
-                        TokensIndex++;
-                    }
-                    else
-                    {
-                        Erro(";", "com-esc", Tokens[TokensIndex].Lexema);
-                    }
+                    TokensIndex++;
                 }
                 else
                 {
-                    Erro(")", "com-esc", Tokens[TokensIndex].Lexema);
+                    Erro(";", "com-esc", Tokens[TokensIndex].Lexema);
                 }
             }
             else
@@ -623,15 +624,27 @@ namespace DS_PLUS_COMPILER.Src
         #region PRINTS
         private void Validado(string bloco, string lexema)
         {
-            string str = string.Format("Bloco {0} token {1} OK.\n", bloco, lexema);
+            string str = string.Format("| Bloco {0} token {1} OK.\n", bloco, lexema);
 
-            Console.WriteLine(str);
+            Console.Write(str);
             this.Log += str;
         }
 
         private void Erro(string esperado, string estrutura, string lexema)
         {
-            Console.WriteLine(string.Format("Erro na estrutura '{1}', Esperado '{0}' encontrado o token '{2}'.", esperado, estrutura, lexema));
+            string str = string.Format("\nErro na estrutura '{1}', Esperado '{0}' encontrado o token '{2}'.\n", esperado, estrutura, lexema);
+
+            this.Log += str;
+
+            Console.Write(str);
+
+            //Le o arquivo de entrada
+            File fileReader = new(Config.InputPath);
+
+            //Gera arquivo de log da analise semantico
+            fileReader.PrintFile(this.Log, "AnaliseSintaticoLog.txt");
+
+            Environment.Exit(1);
         }
         #endregion
     }

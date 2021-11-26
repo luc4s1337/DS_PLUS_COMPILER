@@ -5,13 +5,8 @@
 |             main                          |          PR_MAIN
 |             (                             |          ABRE_PARENTESES
 |             )                             |          FECHA_PARENTESES
-|             var                           |          PR_VAR
-|             int                           |          PR_INT
-|             _int1                         |          ID
-|             ,                             |          VIRGULA
-|             _int2                         |          ID
-|             =                             |          OP_ATRI
-|             2                             |          LIT_INT
+|             float                         |          PR_FLT
+|             _teste                        |          ID
 |             ;                             |          PONTO_VIRGULA
 |                                           |          FIM
 

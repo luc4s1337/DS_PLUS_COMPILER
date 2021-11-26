@@ -1,11 +1,5 @@
-Bloco programa token main OK.
-Bloco decl-main token ( OK.
-Bloco decl-main token ) OK.
-Bloco decl-var token var OK.
-Bloco espec-tipo token int OK.
-Bloco decl-var token _int1 OK.
-Bloco decl-var token , OK.
-Bloco com-atr token _int2 OK.
-Bloco com-atr token = OK.
-Bloco literal token 2 OK.
-Bloco decl-var token ; OK.
+| Bloco programa token main OK.
+| Bloco decl-main token ( OK.
+| Bloco decl-main token ) OK.
+
+Erro na estrutura 'bloco', Esperado 'um dos seguintes comandos var, if, while, scan, print, Id' encontrado o token 'float'.

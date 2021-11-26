@@ -426,7 +426,7 @@ namespace DS_PLUS_COMPILER.Src
 						switch (ch)
 						{
 							case 'l':
-								this.Estado = 22;
+								this.Estado = 21;
 								break;
 							case 'n':
 								this.Estado = 30;
@@ -1082,6 +1082,8 @@ namespace DS_PLUS_COMPILER.Src
 		private void PrintMessage(string tipo, string erro, string lexema)
 		{
 			Console.WriteLine(string.Format("'{0}': {1}, Lexema: {2}", tipo, erro, lexema));
+
+			if (tipo == "Erro") Environment.Exit(1);
 		}
 
 		public string PrintAnalise() 
