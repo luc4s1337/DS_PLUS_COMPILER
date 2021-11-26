@@ -16,7 +16,7 @@ main()
 
 	scan(_teste_float);
 
-	var int _i = 0;
+	var intu _i = 0;
 
 	while _i < 10 do 
 		var int _int_local = 34, _int_local2 = 20;

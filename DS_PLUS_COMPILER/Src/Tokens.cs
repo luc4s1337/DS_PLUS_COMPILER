@@ -23,22 +23,21 @@ namespace DS_PLUS_COMPILER.Src
             PR_CHAR, //done
             PR_DO, //done
             PR_ELSE, //done
-            PR_END, //done
-            PR_FOR, //done
+            PR_STR, //done
+            PR_VOID, //done
+            PR_VAR, //done
+            PR_THEN, //done
             PR_FLT, //done
             PR_IF, //done
             PR_INT, //done
+            PR_WHILE, //done
+
             PR_MAIN, //done
             PR_LOOP, //done
             PR_PRINT, //done
             PR_RTN, //done
-            PR_SCN, //done
-            PR_STR, //done
-            PR_THEN, //done
-            PR_VAR, //done
-            PR_VOID, //done
-            PR_WHILE, //done
-            
+            PR_SCN, //done     
+            PR_END, //done
 
             OP_SOMA, //done
             OP_SUB, //done 

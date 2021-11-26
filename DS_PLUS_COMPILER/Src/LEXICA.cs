@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DS_PLUS_COMPILER.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,7 +19,9 @@ namespace DS_PLUS_COMPILER.Src
 
 		public string LexemaAtual { get; set; } = "";
 
-		public LEXICA(string _buffer)
+		public int Linha { get; set; } = 1;
+
+        public LEXICA(string _buffer)
 		{
 			this.Buffer = _buffer.ToLower() + " ";
 		}
@@ -64,7 +67,7 @@ namespace DS_PLUS_COMPILER.Src
 									case 'e':
 										this.Estado = 20;
 										break;
-									//for, float
+									//float
 									case 'f':
 										this.Estado = 23;
 										break;
@@ -120,7 +123,7 @@ namespace DS_PLUS_COMPILER.Src
 										this.LexemaAtual += ch;
 
 										if (Buffer[BufferIndex + 1] != '=')
-											InsertToken(Enums.Tokens.OP_ATRI);
+											InsertToken(Enums.Tokens.OP_ATRI, BufferIndex);
 										else
 											this.Estado = 3;
 
@@ -129,7 +132,7 @@ namespace DS_PLUS_COMPILER.Src
 										this.LexemaAtual += ch;
 
 										if (Buffer[BufferIndex + 1] != '=')
-											InsertToken(Enums.Tokens.OP_NEGA);
+											InsertToken(Enums.Tokens.OP_NEGA, BufferIndex);
 										else
 											this.Estado = 4;
 
@@ -138,7 +141,7 @@ namespace DS_PLUS_COMPILER.Src
 										this.LexemaAtual += ch;
 
 										if (Buffer[BufferIndex + 1] != '=')
-											InsertToken(Enums.Tokens.OP_MENOR);
+											InsertToken(Enums.Tokens.OP_MENOR, BufferIndex);
 										else
 											this.Estado = 5;
 
@@ -147,62 +150,62 @@ namespace DS_PLUS_COMPILER.Src
 										this.LexemaAtual += ch;
 
 										if (Buffer[BufferIndex + 1] != '=')
-											InsertToken(Enums.Tokens.OP_MAIOR);
+											InsertToken(Enums.Tokens.OP_MAIOR, BufferIndex);
 										else
 											this.Estado = 6;
 
 										break;
 									case '+':
 										this.LexemaAtual += ch;
-										InsertToken(Enums.Tokens.OP_SOMA);
+										InsertToken(Enums.Tokens.OP_SOMA, BufferIndex);
 										break;
 									case '-':
 										this.LexemaAtual += ch;
-										InsertToken(Enums.Tokens.OP_SUB);
+										InsertToken(Enums.Tokens.OP_SUB, BufferIndex);
 										break;
 									case '/':
 										this.LexemaAtual += ch;
-										InsertToken(Enums.Tokens.OP_DIV);
+										InsertToken(Enums.Tokens.OP_DIV, BufferIndex);
 										break;
 									case '*':
 										this.LexemaAtual += ch;
-										InsertToken(Enums.Tokens.OP_MULT);
+										InsertToken(Enums.Tokens.OP_MULT, BufferIndex);
 										break;
 									case '%':
 										this.LexemaAtual += ch;
-										InsertToken(Enums.Tokens.OP_MOD);
+										InsertToken(Enums.Tokens.OP_MOD, BufferIndex);
 										break;
 									case ',':
 										this.LexemaAtual += ch;
-										InsertToken(Enums.Tokens.VIRGULA);
+										InsertToken(Enums.Tokens.VIRGULA, BufferIndex);
 										break;
 									case ';':
 										this.LexemaAtual += ch;
-										InsertToken(Enums.Tokens.PONTO_VIRGULA);
+										InsertToken(Enums.Tokens.PONTO_VIRGULA, BufferIndex);
 										break;
 									case '{':
 										this.LexemaAtual += ch;
-										InsertToken(Enums.Tokens.ABRE_CHAVES);
+										InsertToken(Enums.Tokens.ABRE_CHAVES, BufferIndex);
 										break;
 									case '}':
 										this.LexemaAtual += ch;
-										InsertToken(Enums.Tokens.FECHA_CHAVES);
+										InsertToken(Enums.Tokens.FECHA_CHAVES, BufferIndex);
 										break;
 									case '(':
 										this.LexemaAtual += ch;
-										InsertToken(Enums.Tokens.ABRE_PARENTESES);
+										InsertToken(Enums.Tokens.ABRE_PARENTESES, BufferIndex);
 										break;
 									case ')':
 										this.LexemaAtual += ch;
-										InsertToken(Enums.Tokens.FECHA_PARENTESES);
+										InsertToken(Enums.Tokens.FECHA_PARENTESES, BufferIndex);
 										break;
 									case '[':
 										this.LexemaAtual += ch;
-										InsertToken(Enums.Tokens.ABRE_COLCHETES);
+										InsertToken(Enums.Tokens.ABRE_COLCHETES, BufferIndex);
 										break;
 									case ']':
 										this.LexemaAtual += ch;
-										InsertToken(Enums.Tokens.FECHA_COLCHETES);
+										InsertToken(Enums.Tokens.FECHA_COLCHETES, BufferIndex);
 										break;
 									case '\'':
 										this.LexemaAtual += ch;
@@ -215,10 +218,12 @@ namespace DS_PLUS_COMPILER.Src
 
 										break;
 									case '\t':
-									case '\0':
-									case '\r':
+									case '\0':									
 									case '\n':
 									case ' ':
+										break;
+									case '\r':
+										this.Linha++;
 										break;
 									default:
 										PrintMessage("Erro", "Caractere inválido.", this.LexemaAtual);
@@ -230,7 +235,7 @@ namespace DS_PLUS_COMPILER.Src
 					case 1:
 						if (!IsDigit(this.Buffer[this.BufferIndex]) && this.Buffer[this.BufferIndex] != '.')
 						{
-							InsertToken(Enums.Tokens.LIT_INT);
+							InsertToken(Enums.Tokens.LIT_INT, BufferIndex);
 							BufferIndex--;
 						}
 						else 
@@ -246,7 +251,7 @@ namespace DS_PLUS_COMPILER.Src
 							{
 								//se o proximo caractere nao for um numero, gera o token
 								if (!IsDigit(this.Buffer[this.BufferIndex + 1]))
-									InsertToken(Enums.Tokens.LIT_INT);
+									InsertToken(Enums.Tokens.LIT_INT, BufferIndex);
 							}
 						}			
 
@@ -257,7 +262,7 @@ namespace DS_PLUS_COMPILER.Src
 						if (IsDigit(ch))
 						{
 							if (!IsDigit(this.Buffer[this.BufferIndex + 1]) && this.Buffer[this.BufferIndex + 1] != '.')
-								InsertToken(Enums.Tokens.LIT_FLT);
+								InsertToken(Enums.Tokens.LIT_FLT, BufferIndex);
 						}
 
 						break;
@@ -265,7 +270,7 @@ namespace DS_PLUS_COMPILER.Src
 						if (ch == '=')
 						{
 							this.LexemaAtual += ch;
-							InsertToken(Enums.Tokens.OP_IGUAL);
+							InsertToken(Enums.Tokens.OP_IGUAL, BufferIndex);
 						}
 						else
 						{
@@ -276,7 +281,7 @@ namespace DS_PLUS_COMPILER.Src
 						if (ch == '=')
 						{
 							this.LexemaAtual += ch;
-							InsertToken(Enums.Tokens.OP_DIFERENTE);
+							InsertToken(Enums.Tokens.OP_DIFERENTE, BufferIndex);
 						}
 						else {
 							PrintMessage("Erro", "Operador inválido.", this.LexemaAtual);
@@ -286,7 +291,7 @@ namespace DS_PLUS_COMPILER.Src
 						if (ch == '=')
 						{
 							this.LexemaAtual += ch;
-							InsertToken(Enums.Tokens.OP_MENOR_IGUAL);
+							InsertToken(Enums.Tokens.OP_MENOR_IGUAL, BufferIndex);
 						}
 						else
 						{
@@ -297,7 +302,7 @@ namespace DS_PLUS_COMPILER.Src
 						if (ch == '=')
 						{
 							this.LexemaAtual += ch;
-							InsertToken(Enums.Tokens.OP_MAIOR_IGUAL);
+							InsertToken(Enums.Tokens.OP_MAIOR_IGUAL, BufferIndex);
 						}
 						else
 						{
@@ -319,7 +324,7 @@ namespace DS_PLUS_COMPILER.Src
 						break;
 					case 8:
 						this.LexemaAtual += ch;
-						InsertToken(Enums.Tokens.LIT_CHAR);
+						InsertToken(Enums.Tokens.LIT_CHAR, BufferIndex);
 						break;
 					case 9:
 						this.LexemaAtual += ch;
@@ -331,7 +336,7 @@ namespace DS_PLUS_COMPILER.Src
 						break;
 					case 10:
 						this.LexemaAtual += ch;
-						InsertToken(Enums.Tokens.LIT_STR);
+						InsertToken(Enums.Tokens.LIT_STR, BufferIndex);
 						break;
 					case 13:
 						this.LexemaAtual += ch;
@@ -364,7 +369,7 @@ namespace DS_PLUS_COMPILER.Src
 
 						if (ch == 'l')
 						{
-							InsertToken(Enums.Tokens.PR_BOOL);
+							InsertToken(Enums.Tokens.PR_BOOL, BufferIndex);
 						}
 						else
 						{
@@ -403,7 +408,7 @@ namespace DS_PLUS_COMPILER.Src
 
 						if (ch == 'r')
 						{
-							InsertToken(Enums.Tokens.PR_CHAR);
+							InsertToken(Enums.Tokens.PR_CHAR, BufferIndex);
 						}
 						else
 						{
@@ -418,7 +423,7 @@ namespace DS_PLUS_COMPILER.Src
 							 !IsAlpha(this.Buffer[this.BufferIndex + 1]) &&
 							 this.Buffer[this.BufferIndex + 1] != '_')
 						{
-							InsertToken(Enums.Tokens.ID);
+							InsertToken(Enums.Tokens.ID, BufferIndex);
 						}
 
 						break;
@@ -457,7 +462,7 @@ namespace DS_PLUS_COMPILER.Src
 
 						if (ch == 'e')
 						{
-							InsertToken(Enums.Tokens.PR_ELSE);
+							InsertToken(Enums.Tokens.PR_ELSE, BufferIndex);
 						}
 						else
 						{
@@ -468,17 +473,13 @@ namespace DS_PLUS_COMPILER.Src
 					case 23:
 						this.LexemaAtual += ch;
 
-						switch (ch) 
+						if (ch == 'l')
 						{
-							case 'l':
-								this.Estado = 24;
-								break;
-							case 'o':
-								this.Estado = 27;
-								break;
-                            default:
-								PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
-								break;
+							this.Estado = 24;
+						}
+						else 
+						{
+							PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
 						}
 
 						break;
@@ -513,27 +514,14 @@ namespace DS_PLUS_COMPILER.Src
 
 						if (ch == 't')
 						{
-							InsertToken(Enums.Tokens.PR_FLT);
+							InsertToken(Enums.Tokens.PR_FLT, BufferIndex);
 						}
 						else
 						{
 							PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
 						}
 
-						break;
-					case 27:
-						this.LexemaAtual += ch;
-
-						if (ch == 'r')
-						{
-							InsertToken(Enums.Tokens.PR_FOR);
-						}
-						else
-						{
-							PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
-						}
-
-						break;
+						break;					
 					case 28:
 						this.LexemaAtual += ch;
 
@@ -543,7 +531,7 @@ namespace DS_PLUS_COMPILER.Src
 								this.Estado = 29;
 								break;
 							case 'f':
-								InsertToken(Enums.Tokens.PR_IF);
+								InsertToken(Enums.Tokens.PR_IF, BufferIndex);
 								break;
 							default:
 								PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual);
@@ -556,7 +544,7 @@ namespace DS_PLUS_COMPILER.Src
 
 						if (ch == 't')
 						{
-							InsertToken(Enums.Tokens.PR_INT);
+							InsertToken(Enums.Tokens.PR_INT, BufferIndex);
 						}
 						else
 						{
@@ -569,7 +557,7 @@ namespace DS_PLUS_COMPILER.Src
 
 						if (ch == 'd')
 						{
-							InsertToken(Enums.Tokens.PR_END);
+							InsertToken(Enums.Tokens.PR_END, BufferIndex);
 						}
 						else
 						{
@@ -621,7 +609,7 @@ namespace DS_PLUS_COMPILER.Src
 
 						if (ch == 't')
 						{
-							InsertToken(Enums.Tokens.PR_PRINT);
+							InsertToken(Enums.Tokens.PR_PRINT, BufferIndex);
 						}
 						else
 						{
@@ -686,7 +674,7 @@ namespace DS_PLUS_COMPILER.Src
 
 						if (ch == 'n')
 						{
-							InsertToken(Enums.Tokens.PR_RTN);
+							InsertToken(Enums.Tokens.PR_RTN, BufferIndex);
 						}
 						else
 						{
@@ -729,7 +717,7 @@ namespace DS_PLUS_COMPILER.Src
 
 						if (ch == 'n')
 						{
-							InsertToken(Enums.Tokens.PR_SCN);
+							InsertToken(Enums.Tokens.PR_SCN, BufferIndex);
 						}
 						else
 						{
@@ -781,7 +769,7 @@ namespace DS_PLUS_COMPILER.Src
 
 						if (ch == 'g')
 						{
-							InsertToken(Enums.Tokens.PR_STR);
+							InsertToken(Enums.Tokens.PR_STR, BufferIndex);
 						}
 						else
 						{
@@ -824,7 +812,7 @@ namespace DS_PLUS_COMPILER.Src
 
 						if (ch == 'd')
 						{
-							InsertToken(Enums.Tokens.PR_VOID);
+							InsertToken(Enums.Tokens.PR_VOID, BufferIndex);
 						}
 						else
 						{
@@ -876,7 +864,7 @@ namespace DS_PLUS_COMPILER.Src
 
 						if (ch == 'e')
 						{
-							InsertToken(Enums.Tokens.PR_WHILE);
+							InsertToken(Enums.Tokens.PR_WHILE, BufferIndex);
 						}
 						else
 						{
@@ -915,7 +903,7 @@ namespace DS_PLUS_COMPILER.Src
 
 						if (ch == 'n')
 						{
-							InsertToken(Enums.Tokens.PR_MAIN);
+							InsertToken(Enums.Tokens.PR_MAIN, BufferIndex);
 						}
 						else
 						{
@@ -954,7 +942,7 @@ namespace DS_PLUS_COMPILER.Src
 
 						if (ch == 'n')
 						{
-							InsertToken(Enums.Tokens.PR_THEN);
+							InsertToken(Enums.Tokens.PR_THEN, BufferIndex);
 						}
 						else
 						{
@@ -967,7 +955,7 @@ namespace DS_PLUS_COMPILER.Src
 
 						if (ch == 'o')
 						{
-							InsertToken(Enums.Tokens.PR_DO);
+							InsertToken(Enums.Tokens.PR_DO, BufferIndex);
 						}
 						else
 						{
@@ -1006,7 +994,7 @@ namespace DS_PLUS_COMPILER.Src
 
 						if (ch == 'p')
 						{
-							InsertToken(Enums.Tokens.PR_LOOP);
+							InsertToken(Enums.Tokens.PR_LOOP, BufferIndex);
 						}
 						else
 						{
@@ -1019,7 +1007,7 @@ namespace DS_PLUS_COMPILER.Src
 
 						if (ch == 'r')
 						{
-							InsertToken(Enums.Tokens.PR_VAR);
+							InsertToken(Enums.Tokens.PR_VAR, BufferIndex);
 						}
 						else
 						{
@@ -1037,8 +1025,12 @@ namespace DS_PLUS_COMPILER.Src
 		#endregion
 
 		#region FUNCOES_BASICAS
-		private void InsertToken(Enums.Tokens _token)
+		private void InsertToken(Enums.Tokens _token, int _bufferIndex)
 		{
+			if ((int)_token >= 6 && (int)_token <= 17)
+				if (Buffer[_bufferIndex+1] != ' ' && Buffer[_bufferIndex+1] != '\r')
+					PrintMessage("Erro", "Comando não identificado.", this.LexemaAtual+Buffer[_bufferIndex+1]);
+
 			Token token = new(this.LexemaAtual);
 			token.TokenCodigo = _token;
 
@@ -1083,9 +1075,23 @@ namespace DS_PLUS_COMPILER.Src
 		#region PRINTS
 		private void PrintMessage(string tipo, string erro, string lexema)
 		{
-			Console.WriteLine(string.Format("'{0}': {1}, Lexema: {2}", tipo, erro, lexema));
+			if (tipo == "Erro")
+			{
+				string print = PrintAnalise();
+				string erro_message = string.Format("'{0}': {1}, Lexema: {2}, Linha -> {3}", tipo, erro, lexema, this.Linha);
 
-			if (tipo == "Erro") Environment.Exit(1);
+				print += erro_message;
+
+				Console.WriteLine(erro_message);
+
+				//Le o arquivo de entrada
+				File fileReader = new(Config.InputPath);
+
+				//Gera arquivo de log da analise semantico
+				fileReader.PrintFile(print, "AnaliseLexicaLog.txt");
+
+				Environment.Exit(1);
+			}				
 		}
 
 		public string PrintAnalise() 
@@ -1108,7 +1114,7 @@ namespace DS_PLUS_COMPILER.Src
 				print += "|          " +item.TokenCodigo+      "\n";
 			}
 
-			print += "\n\n-----------(FIM)----PRINT-LEXICO---------------------\n\n";
+			print += "\n\n";
 
 			Console.Write(print);
 

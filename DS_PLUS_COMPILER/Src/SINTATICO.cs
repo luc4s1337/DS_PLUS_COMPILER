@@ -26,6 +26,14 @@ namespace DS_PLUS_COMPILER.Src
             Log += inicio;
             Console.Write(inicio);
 
+            string cabecalho = "";
+            cabecalho += "              BLOCO";
+            cabecalho += "                    LEXEMA";
+            cabecalho += "                           SITUAÇÃO\n\n";
+
+            Log += cabecalho;
+            Console.Write(cabecalho);
+
             Programa();
 
             string valido = "\nPROGRAMA VÁLIDO!\n";
@@ -33,7 +41,7 @@ namespace DS_PLUS_COMPILER.Src
 
             Console.Write(valido);
 
-            string fim = "\n\n-----------(FIM)----PRINT-SINTATICO------------------\n\n";
+            string fim = "\n\n";
             Log += fim;
 
             Console.Write(fim);
@@ -637,7 +645,21 @@ namespace DS_PLUS_COMPILER.Src
         #region PRINTS
         private void Validado(string bloco, string lexema)
         {
-            string str = string.Format("| Bloco {0} token {1} OK.\n", bloco, lexema);
+            string str = "|             " + bloco;
+
+            for (int i = 0; i < 15 - bloco.Length; i++)
+            {
+                str += " ";
+            }
+
+            str += "|         " + lexema + "";
+
+            for (int i = 0; i < 21 - lexema.Length; i++)
+            {
+                str += " ";
+            }
+
+            str += "|           OK\n";
 
             Console.Write(str);
             this.Log += str;
@@ -645,11 +667,30 @@ namespace DS_PLUS_COMPILER.Src
 
         private void Erro(string esperado, string estrutura, string lexema)
         {
-            string str = string.Format("\nErro na estrutura '{1}', Esperado '{0}' encontrado o token '{2}'.\n", esperado, estrutura, lexema);
+            string str = "|             " + estrutura;
 
-            this.Log += str;
+            for (int i = 0; i < 15 - estrutura.Length; i++)
+            {
+                str += " ";
+            }
+
+            str += "|         " + lexema + "";
+
+            for (int i = 0; i < 21 - lexema.Length; i++)
+            {
+                str += " ";
+            }
+
+            str += "|           ERRO\n";
 
             Console.Write(str);
+            this.Log += str;
+
+            string erro = string.Format("\nErro na estrutura '{1}', Esperado '{0}' encontrado o token '{2}'.\n", esperado, estrutura, lexema);
+
+            this.Log += erro;
+
+            Console.Write(erro);
 
             //Le o arquivo de entrada
             File fileReader = new(Config.InputPath);
