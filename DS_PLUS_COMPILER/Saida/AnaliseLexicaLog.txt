@@ -1,54 +1,39 @@
----------- (INICIO) PRINT LEXICO ---------------
+---------------(INICIO)-PRINT-LEXICO----------------
 
               LEXEMA                                   TOKEN
 
 |             main                          |          PR_MAIN
 |             (                             |          ABRE_PARENTESES
 |             )                             |          FECHA_PARENTESES
-|             string                        |          PR_STR
+|             var                           |          PR_VAR
+|             int                           |          PR_INT
+|             _int1                         |          ID
+|             =                             |          OP_ATRI
+|             23                            |          LIT_INT
+|             ;                             |          PONTO_VIRGULA
+|             var                           |          PR_VAR
+|             int                           |          PR_INT
+|             _int2                         |          ID
+|             =                             |          OP_ATRI
+|             3                             |          LIT_INT
+|             var                           |          PR_VAR
+|             int                           |          PR_INT
 |             _teste                        |          ID
-|             =                             |          OP_ATRI
-|             "teste de string"             |          LIT_STR
-|             ;                             |          PONTO_VIRGULA
-|             int                           |          PR_INT
-|             _inteiro                      |          ID
-|             =                             |          OP_ATRI
-|             45                            |          LIT_INT
-|             ;                             |          PONTO_VIRGULA
-|             float                         |          PR_FLT
-|             _real                         |          ID
-|             =                             |          OP_ATRI
-|             45.45                         |          LIT_FLT
-|             ;                             |          PONTO_VIRGULA
-|             int                           |          PR_INT
-|             _int2                         |          ID
-|             ,                             |          VIRGULA
-|             _int3                         |          ID
-|             ;                             |          PONTO_VIRGULA
-|             _int2                         |          ID
-|             =                             |          OP_ATRI
-|             _inteiro                      |          ID
-|             +                             |          OP_SOMA
-|             _real                         |          ID
 |             ;                             |          PONTO_VIRGULA
 |             if                            |          PR_IF
-|             _inteiro                      |          ID
+|             _int2                         |          ID
 |             >                             |          OP_MAIOR
-|             _int                          |          ID
-|             2                             |          LIT_INT
+|             _int1                         |          ID
 |             then                          |          PR_THEN
-|             _int3                         |          ID
+|             _teste                        |          ID
 |             =                             |          OP_ATRI
-|             34                            |          LIT_INT
+|             _int2                         |          ID
+|             +                             |          OP_SOMA
+|             _int1                         |          ID
 |             ;                             |          PONTO_VIRGULA
 |             end                           |          PR_END
-|             print                         |          PR_PRINT
-|             (                             |          ABRE_PARENTESES
-|             _int3                         |          ID
-|             )                             |          FECHA_PARENTESES
-|             ;                             |          PONTO_VIRGULA
 |                                           |          FIM
 
 
--------- (FIM) PRINT LEXICO ---------------
+-----------(FIM)----PRINT-LEXICO---------------------
 

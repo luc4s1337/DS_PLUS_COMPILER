@@ -1,0 +1,8 @@
+Bloco programa token main OK.
+Bloco decl-main token ( OK.
+Bloco decl-main token ) OK.
+Bloco decl-var token var OK.
+Bloco espec-tipo token int OK.
+Bloco decl-var token _int1 OK.
+Bloco com-atr token = OK.
+Bloco literal token 23 OK.

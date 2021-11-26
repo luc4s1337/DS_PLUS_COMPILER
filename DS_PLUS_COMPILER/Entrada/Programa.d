@@ -1,14 +1,8 @@
 main()
-	var string _teste = "teste de string";
-	var int _inteiro = 45;
-	var float _real = 45.45;
-	var int _int2;
-	var _int3;
+	var int _int1 = 23;
+	var int _int2 = 3;
+	var int _teste;
 
-	_int2 = _inteiro + _real;
-
-	if _inteiro > _int 2 then
-		_int3 = 34;
+	if _int2 > _int1 then
+		_teste = _int2 + _int1;
 	end
-
-	print(_int3);

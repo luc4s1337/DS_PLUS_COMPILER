@@ -226,19 +226,26 @@ namespace DS_PLUS_COMPILER.Src
 						}
 						break;
 					case 1:
-						this.LexemaAtual += ch;
+						if (!IsDigit(this.Buffer[this.BufferIndex]) && this.Buffer[this.BufferIndex] != '.')
+						{
+							InsertToken(Enums.Tokens.LIT_INT);
+						}
+						else 
+						{
+							this.LexemaAtual += ch;
 
-						//se for numero real
-						if (this.Buffer[this.BufferIndex + 1] == '.')
-						{
-							this.Estado = 2;
-						}
-						else
-						{
-							//se o proximo caractere nao for um numero, gera o token
-							if (!IsDigit(this.Buffer[this.BufferIndex + 1]))
-								InsertToken(Enums.Tokens.LIT_INT);
-						}
+							//se for numero real
+							if (this.Buffer[this.BufferIndex + 1] == '.')
+							{
+								this.Estado = 2;
+							}
+							else
+							{
+								//se o proximo caractere nao for um numero, gera o token
+								if (!IsDigit(this.Buffer[this.BufferIndex + 1]))
+									InsertToken(Enums.Tokens.LIT_INT);
+							}
+						}			
 
 						break;
 					case 2:
@@ -1076,8 +1083,8 @@ namespace DS_PLUS_COMPILER.Src
 
 		public string PrintAnalise() 
 		{
-			string print = "---------- (INICIO) PRINT LEXICO ---------------\n\n";
-
+			string print = "---------------(INICIO)-PRINT-LEXICO----------------\n\n";
+			
 			print += "              LEXEMA";
 			print += "                                   TOKEN\n\n";
 
@@ -1094,7 +1101,7 @@ namespace DS_PLUS_COMPILER.Src
 				print += "|          " +item.TokenCodigo+      "\n";
 			}
 
-			print +="\n\n-------- (FIM) PRINT LEXICO ---------------\n\n";
+			print += "\n\n-----------(FIM)----PRINT-LEXICO---------------------\n\n";
 
 			Console.Write(print);
 
