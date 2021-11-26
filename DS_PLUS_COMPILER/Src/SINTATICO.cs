@@ -95,14 +95,19 @@ namespace DS_PLUS_COMPILER.Src
             }
             else 
             {
-                if (Tokens[TokensIndex].TokenCodigo == Enums.Tokens.PONTO_VIRGULA)
+                switch (Tokens[TokensIndex].TokenCodigo) 
                 {
-                    Validado("decl-var", Tokens[TokensIndex].Lexema);
-                    TokensIndex++;
-                }
-                else 
-                {
-                    Erro(";", "decl-var", Tokens[TokensIndex].Lexema);
+                    case Enums.Tokens.PONTO_VIRGULA:
+                        Validado("decl-var", Tokens[TokensIndex].Lexema);
+                        TokensIndex++;
+                        break;
+                    case Enums.Tokens.VIRGULA:
+                        Validado("decl-var", Tokens[TokensIndex].Lexema);
+                        TokensIndex++;
+                        break;
+                    default:
+                        Erro("; ou ,", "decl-var", Tokens[TokensIndex].Lexema);
+                        break;
                 }
             }
         }
@@ -154,6 +159,7 @@ namespace DS_PLUS_COMPILER.Src
                 )
             {
                 Validado("literal", Tokens[TokensIndex].Lexema);
+                TokensIndex++;
             }
             else 
             {
@@ -169,10 +175,10 @@ namespace DS_PLUS_COMPILER.Src
             Tokens[TokensIndex].TokenCodigo == Enums.Tokens.PR_WHILE ||
             Tokens[TokensIndex].TokenCodigo == Enums.Tokens.PR_VAR ||
             Tokens[TokensIndex].TokenCodigo == Enums.Tokens.ID ||
-            Tokens[TokensIndex].TokenCodigo == Enums.Tokens.PR_END) 
+            Tokens[TokensIndex].TokenCodigo == Enums.Tokens.PR_END)
             {
                 ListaCom();
-            }                
+            }
         }
         #endregion
 
@@ -225,6 +231,9 @@ namespace DS_PLUS_COMPILER.Src
                     Validado("com-atr", Tokens[TokensIndex].Lexema);
                     TokensIndex++;
                     ComAtribui();
+                    break;
+                case Enums.Tokens.FIM:
+                    Validado("FIM", Tokens[TokensIndex].TokenCodigo.ToString());
                     break;
                 default:
                     Erro("um dos seguintes comandos var, if, while, scan, print, =", "comando", Tokens[TokensIndex].Lexema);
@@ -395,14 +404,19 @@ namespace DS_PLUS_COMPILER.Src
 
                 Exp();
 
-                if (Tokens[TokensIndex].TokenCodigo == Enums.Tokens.PONTO_VIRGULA)
+                switch (Tokens[TokensIndex].TokenCodigo)
                 {
-                    Validado("com-atr", Tokens[TokensIndex].Lexema);
-                    TokensIndex++;
-                }
-                else 
-                {
-                    Erro(";", "com-atr", Tokens[TokensIndex].Lexema);
+                    case Enums.Tokens.PONTO_VIRGULA:
+                        Validado("decl-var", Tokens[TokensIndex].Lexema);
+                        TokensIndex++;
+                        break;
+                    case Enums.Tokens.VIRGULA:
+                        Validado("decl-var", Tokens[TokensIndex].Lexema);
+                        TokensIndex++;
+                        break;
+                    default:
+                        Erro("; ou ,", "decl-var", Tokens[TokensIndex].Lexema);
+                        break;
                 }
             }
             else 
@@ -425,13 +439,22 @@ namespace DS_PLUS_COMPILER.Src
                 )
             {
                 ExpSoma();
-                TokensIndex++;
                 Exp1();
             }
         }
 
         private void Exp1()
         {
+            if (Tokens[TokensIndex].TokenCodigo == Enums.Tokens.OP_MENOR_IGUAL ||
+                Tokens[TokensIndex].TokenCodigo == Enums.Tokens.OP_MENOR ||
+                Tokens[TokensIndex].TokenCodigo == Enums.Tokens.OP_MAIOR ||
+                Tokens[TokensIndex].TokenCodigo == Enums.Tokens.OP_MAIOR_IGUAL ||
+                Tokens[TokensIndex].TokenCodigo == Enums.Tokens.OP_DIFERENTE ||
+                Tokens[TokensIndex].TokenCodigo == Enums.Tokens.OP_IGUAL) 
+            {
+                OpRelac();
+            }
+
             if (
                 Tokens[TokensIndex].TokenCodigo == Enums.Tokens.ABRE_PARENTESES ||
                 Tokens[TokensIndex].TokenCodigo == Enums.Tokens.LIT_FLT ||
@@ -441,23 +464,23 @@ namespace DS_PLUS_COMPILER.Src
                 Tokens[TokensIndex].TokenCodigo == Enums.Tokens.ID
                 )
             {
-                OpRelac();
-                TokensIndex++;
                 ExpSoma();
             }
         }
-
+                
         private void ExpSimples() 
         {
             switch (Tokens[TokensIndex].TokenCodigo) 
             {
                 case Enums.Tokens.ABRE_PARENTESES:
-                    Exp();
+                    Validado("exp-simples", Tokens[TokensIndex].Lexema);
                     TokensIndex++;
+                    Exp();
 
                     if (Tokens[TokensIndex].TokenCodigo == Enums.Tokens.FECHA_PARENTESES)
                     {
                         Validado("exp-simples", Tokens[TokensIndex].Lexema);
+                        TokensIndex++;
                     }
                     else 
                     {
@@ -491,13 +514,18 @@ namespace DS_PLUS_COMPILER.Src
                )
             {
                 ExpMult();
-                TokensIndex++;
                 ExpSoma1();
             }            
         }
 
         private void ExpSoma1()
         {
+            if (Tokens[TokensIndex].TokenCodigo == Enums.Tokens.OP_SOMA ||
+                Tokens[TokensIndex].TokenCodigo == Enums.Tokens.OP_SUB)
+            {
+                OpSoma();
+            }
+
             if (Tokens[TokensIndex].TokenCodigo == Enums.Tokens.ABRE_PARENTESES ||
                 Tokens[TokensIndex].TokenCodigo == Enums.Tokens.LIT_FLT ||
                 Tokens[TokensIndex].TokenCodigo == Enums.Tokens.LIT_INT ||
@@ -505,13 +533,11 @@ namespace DS_PLUS_COMPILER.Src
                 Tokens[TokensIndex].TokenCodigo == Enums.Tokens.LIT_STR ||
                 Tokens[TokensIndex].TokenCodigo == Enums.Tokens.ID
                 )
-            {
-                OpSoma();
-                TokensIndex++;
+            {               
                 ExpSoma();
             }
-        }                     
-
+        }
+                
         private void ExpMult()
         {
             if (Tokens[TokensIndex].TokenCodigo == Enums.Tokens.ABRE_PARENTESES ||
@@ -522,48 +548,39 @@ namespace DS_PLUS_COMPILER.Src
                 Tokens[TokensIndex].TokenCodigo == Enums.Tokens.ID)
             {
                 ExpSimples();
-                TokensIndex++;
                 ExpMult1();
             }
         }
 
         private void ExpMult1()
         {
+            if (Tokens[TokensIndex].TokenCodigo == Enums.Tokens.OP_MULT ||
+                Tokens[TokensIndex].TokenCodigo == Enums.Tokens.OP_DIV ||
+                Tokens[TokensIndex].TokenCodigo == Enums.Tokens.OP_MOD)            
+            {
+                OpMult();                
+            }
+
             if (Tokens[TokensIndex].TokenCodigo == Enums.Tokens.ABRE_PARENTESES ||
                 Tokens[TokensIndex].TokenCodigo == Enums.Tokens.LIT_FLT ||
                 Tokens[TokensIndex].TokenCodigo == Enums.Tokens.LIT_INT ||
                 Tokens[TokensIndex].TokenCodigo == Enums.Tokens.LIT_CHAR ||
                 Tokens[TokensIndex].TokenCodigo == Enums.Tokens.LIT_STR ||
                 Tokens[TokensIndex].TokenCodigo == Enums.Tokens.ID)
-            {
-                OpMult();
-                TokensIndex++;
+            {               
                 ExpMult();
             }
         }
 
-        private void OpMult() 
-        {
-            if (Tokens[TokensIndex].TokenCodigo == Enums.Tokens.OP_MULT ||
-                Tokens[TokensIndex].TokenCodigo == Enums.Tokens.OP_DIV ||
-                Tokens[TokensIndex].TokenCodigo == Enums.Tokens.OP_MOD)
-            {
-                Validado("op-soma", Tokens[TokensIndex].Lexema);
-            }
-            else
-            {
-                Erro("esperado um dos seguintes operadores: *, / ou %", "op-soma", Tokens[TokensIndex].Lexema);
-            }
-        }
-
-        private void OpSoma() 
+        private void OpSoma()
         {
             if (Tokens[TokensIndex].TokenCodigo == Enums.Tokens.OP_SUB ||
                 Tokens[TokensIndex].TokenCodigo == Enums.Tokens.OP_SOMA)
             {
                 Validado("op-soma", Tokens[TokensIndex].Lexema);
+                TokensIndex++;
             }
-            else 
+            else
             {
                 Erro("+ ou -", "op-soma", Tokens[TokensIndex].Lexema);
             }
@@ -579,12 +596,28 @@ namespace DS_PLUS_COMPILER.Src
                 Tokens[TokensIndex].TokenCodigo == Enums.Tokens.OP_IGUAL)
             {
                 Validado("op-relac", Tokens[TokensIndex].Lexema);
+                TokensIndex++;
             }
             else
             {
                 Erro("um dos seguintes operadores: <=, <, >, >=, ==, != ", "op-relac", Tokens[TokensIndex].Lexema);
             }
         }
+
+        private void OpMult() 
+        {
+            if (Tokens[TokensIndex].TokenCodigo == Enums.Tokens.OP_MULT ||
+                Tokens[TokensIndex].TokenCodigo == Enums.Tokens.OP_DIV ||
+                Tokens[TokensIndex].TokenCodigo == Enums.Tokens.OP_MOD)
+            {
+                Validado("op-mult", Tokens[TokensIndex].Lexema);
+                TokensIndex++;
+            }
+            else
+            {
+                Erro("esperado um dos seguintes operadores: *, / ou %", "op-soma", Tokens[TokensIndex].Lexema);
+            }
+        }               
         #endregion
 
         #region PRINTS

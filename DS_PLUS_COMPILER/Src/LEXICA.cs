@@ -27,8 +27,10 @@ namespace DS_PLUS_COMPILER.Src
         #region CODIGO
         public void StartAnaliseLexica()
 		{
-			foreach (char ch in this.Buffer)
+			while (BufferIndex < this.Buffer.Length-1) 
 			{
+				char ch = this.Buffer[BufferIndex];
+			
 				switch (Estado)
 				{
 					case 0:
@@ -229,6 +231,7 @@ namespace DS_PLUS_COMPILER.Src
 						if (!IsDigit(this.Buffer[this.BufferIndex]) && this.Buffer[this.BufferIndex] != '.')
 						{
 							InsertToken(Enums.Tokens.LIT_INT);
+							BufferIndex--;
 						}
 						else 
 						{

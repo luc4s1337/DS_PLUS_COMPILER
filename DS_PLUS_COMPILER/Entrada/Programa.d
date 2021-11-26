@@ -1,8 +1,7 @@
 main()
-	var int _int1 = 23;
-	var int _int2 = 3;
-	var int _teste;
+	var int _int1 = 4, _int2 = 2;
+	var int _int3;
 
-	if _int2 > _int1 then
-		_teste = _int2 + _int1;
+	if _int1 > _int2 then
+		_int3 = 10;
 	end

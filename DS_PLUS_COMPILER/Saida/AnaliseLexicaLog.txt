@@ -8,30 +8,11 @@
 |             var                           |          PR_VAR
 |             int                           |          PR_INT
 |             _int1                         |          ID
-|             =                             |          OP_ATRI
-|             23                            |          LIT_INT
-|             ;                             |          PONTO_VIRGULA
-|             var                           |          PR_VAR
-|             int                           |          PR_INT
+|             ,                             |          VIRGULA
 |             _int2                         |          ID
 |             =                             |          OP_ATRI
-|             3                             |          LIT_INT
-|             var                           |          PR_VAR
-|             int                           |          PR_INT
-|             _teste                        |          ID
+|             2                             |          LIT_INT
 |             ;                             |          PONTO_VIRGULA
-|             if                            |          PR_IF
-|             _int2                         |          ID
-|             >                             |          OP_MAIOR
-|             _int1                         |          ID
-|             then                          |          PR_THEN
-|             _teste                        |          ID
-|             =                             |          OP_ATRI
-|             _int2                         |          ID
-|             +                             |          OP_SOMA
-|             _int1                         |          ID
-|             ;                             |          PONTO_VIRGULA
-|             end                           |          PR_END
 |                                           |          FIM
 
 
