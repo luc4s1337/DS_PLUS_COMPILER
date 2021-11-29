@@ -20,18 +20,18 @@ namespace DS_PLUS_COMPILER.Src
         public int ID { get; set; }
         public string NomeVariavel { get; set; }
         public TipoVariavel Tipo { get; set; }
-        public bool Declarada { get; set; }
+        public string Escopo { get; set; }
         public bool Inicializada { get; set; }
-        public bool Removida { get; set; }
+        public bool Ativo { get; set; }
 
-        public Simbolo(int _id, string _nomeVariavel, TipoVariavel _tipo, bool _declarada, bool _inicializada, bool _removida) 
+        public Simbolo(int _id, string _nomeVariavel, TipoVariavel _tipo, string _escopo, bool _inicializada, bool _removida) 
         {
             ID = _id;
             NomeVariavel = _nomeVariavel;
             Tipo = _tipo;
-            Declarada = _declarada;
+            Escopo = _escopo;
             Inicializada = _inicializada;
-            Removida = _removida;
+            Ativo = _removida;
         }
     }
 }

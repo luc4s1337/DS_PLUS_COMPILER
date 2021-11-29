@@ -13,7 +13,8 @@ namespace DS_PLUS_COMPILER.Src
         #region INICIALIZA       
         public List<Token> Tokens { get; set; }
         public int TokensIndex { get; set; } = 0;
-        public string Log { get; set; } = "";        
+        public string Log { get; set; } = "";
+        public SEMANTICO sintatico { get; set; } = new SEMANTICO();
 
         public SINTATICO(List<Token> _tokens)
         {
