@@ -36,7 +36,7 @@ namespace DS_PLUS_COMPILER.Src
 
             Programa();
 
-            string valido = "\nPROGRAMA VÁLIDO!\n";
+            string valido = "\nPROGRAMA VÁLIDO SINTATICAMENTE!\n";
             Log += valido;
 
             Console.Write(valido);

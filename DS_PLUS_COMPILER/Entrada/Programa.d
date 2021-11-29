@@ -1,5 +1,6 @@
 main()
-	var int _teste1 = 3, _teste2 = 2;
+	var int _teste1 = 3;
+	var int _teste2 = 2;
 	var int _teste3;
 
 	if _teste1 > _teste2 then
@@ -16,7 +17,7 @@ main()
 
 	scan(_teste_float);
 
-	var intu _i = 0;
+	var int _i = 0;
 
 	while _i < 10 do 
 		var int _int_local = 34, _int_local2 = 20;

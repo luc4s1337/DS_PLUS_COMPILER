@@ -10,7 +10,9 @@
 |             _teste1                       |          ID
 |             =                             |          OP_ATRI
 |             3                             |          LIT_INT
-|             ,                             |          VIRGULA
+|             ;                             |          PONTO_VIRGULA
+|             var                           |          PR_VAR
+|             int                           |          PR_INT
 |             _teste2                       |          ID
 |             =                             |          OP_ATRI
 |             2                             |          LIT_INT
@@ -56,6 +58,41 @@
 |             )                             |          FECHA_PARENTESES
 |             ;                             |          PONTO_VIRGULA
 |             var                           |          PR_VAR
+|             int                           |          PR_INT
+|             _i                            |          ID
+|             =                             |          OP_ATRI
+|             0                             |          LIT_INT
+|             ;                             |          PONTO_VIRGULA
+|             while                         |          PR_WHILE
+|             _i                            |          ID
+|             <                             |          OP_MENOR
+|             10                            |          LIT_INT
+|             do                            |          PR_DO
+|             var                           |          PR_VAR
+|             int                           |          PR_INT
+|             _int_local                    |          ID
+|             =                             |          OP_ATRI
+|             34                            |          LIT_INT
+|             ,                             |          VIRGULA
+|             _int_local2                   |          ID
+|             =                             |          OP_ATRI
+|             20                            |          LIT_INT
+|             ;                             |          PONTO_VIRGULA
+|             var                           |          PR_VAR
+|             int                           |          PR_INT
+|             _int3                         |          ID
+|             =                             |          OP_ATRI
+|             _int_local                    |          ID
+|             +                             |          OP_SOMA
+|             _int_local2                   |          ID
+|             ;                             |          PONTO_VIRGULA
+|             print                         |          PR_PRINT
+|             (                             |          ABRE_PARENTESES
+|             "teste de looping"            |          LIT_STR
+|             )                             |          FECHA_PARENTESES
+|             ;                             |          PONTO_VIRGULA
+|             loop                          |          PR_LOOP
+|             ;                             |          PONTO_VIRGULA
+|                                           |          FIM
 
 
-'Erro': Comando não identificado., Lexema: intu, Linha -> 19

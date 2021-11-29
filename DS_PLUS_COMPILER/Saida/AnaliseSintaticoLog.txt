@@ -10,8 +10,10 @@
 |             decl-var       |         _teste1              |           OK
 |             com-atr        |         =                    |           OK
 |             literal        |         3                    |           OK
-|             decl-var       |         ,                    |           OK
-|             com-atr        |         _teste2              |           OK
+|             decl-var       |         ;                    |           OK
+|             decl-var       |         var                  |           OK
+|             espec-tipo     |         int                  |           OK
+|             decl-var       |         _teste2              |           OK
 |             com-atr        |         =                    |           OK
 |             literal        |         2                    |           OK
 |             decl-var       |         ;                    |           OK
@@ -93,8 +95,6 @@
 |             com-rep        |         loop                 |           OK
 |             com-rep        |         ;                    |           OK
 
-PROGRAMA VÁLIDO!
+PROGRAMA VÁLIDO SINTATICAMENTE!
 
-
------------(FIM)----PRINT-SINTATICO------------------
 
