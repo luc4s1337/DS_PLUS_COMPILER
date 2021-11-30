@@ -9,7 +9,7 @@
 |             espec-tipo     |         int                  |           OK
 |             decl-var       |         _teste1              |           OK
 |             com-atr        |         =                    |           OK
-|             literal        |         3                    |           OK
+|             literal        |         33                   |           OK
 |             decl-var       |         ;                    |           OK
 |             decl-var       |         var                  |           OK
 |             espec-tipo     |         int                  |           OK
@@ -52,7 +52,7 @@
 |             espec-tipo     |         float                |           OK
 |             decl-var       |         _teste_float         |           OK
 |             com-atr        |         =                    |           OK
-|             literal        |         23.4                 |           OK
+|             literal        |         23.2                 |           OK
 |             decl-var       |         ;                    |           OK
 |             com-esc        |         print                |           OK
 |             com-esc        |         (                    |           OK

@@ -1,28 +1,8 @@
+
+
 -----------(INICIO)-PRINT-TABELA-DE-SIMBOLOS------------------
 
 NOME           TIPO        ESCOPO        INICIALIZADA    ATIVO      SITUAÇÃO
 
 _teste1        PR_INT      Global        False           True       Inserindo no Global
 _teste1        PR_INT      Global        True            True       Inicializa a variavel
-_teste2        PR_INT      Global        False           True       Inserindo no Global
-_teste2        PR_INT      Global        True            True       Inicializa a variavel
-_teste3        PR_INT      Global        False           True       Inserindo no Global
-_teste3        PR_INT      Global        True            True       Inicializa a variavel
-_teste_float   PR_FLT      Global        False           True       Inserindo no Global
-_teste_float   PR_FLT      Global        True            True       Inicializa a variavel
-_i             PR_INT      Global        False           True       Inserindo no Global
-_i             PR_INT      Global        True            True       Inicializa a variavel
-_int_local     PR_INT      Local         False           True       Inserindo no Local
-_int_local     PR_INT      Local         True            True       Inicializa a variavel
-_int_local2    PR_INT      Local         False           True       Inserindo no Local
-_int_local2    PR_INT      Local         True            True       Inicializa a variavel
-_int3          PR_INT      Local         False           True       Inserindo no Local
-_int3          PR_INT      Local         True            True       Inicializa a variavel
-_int_local     PR_INT      Local         True            False      Saida no while.
-_int_local2    PR_INT      Local         True            False      Saida no while.
-_int3          PR_INT      Local         True            False      Saida no while.
-_teste1        PR_INT      Global        True            False      Saida no main.
-_teste2        PR_INT      Global        True            False      Saida no main.
-_teste3        PR_INT      Global        True            False      Saida no main.
-_teste_float   PR_FLT      Global        True            False      Saida no main.
-_i             PR_INT      Global        True            False      Saida no main.

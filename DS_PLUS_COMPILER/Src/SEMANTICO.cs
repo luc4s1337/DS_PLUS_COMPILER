@@ -152,20 +152,17 @@ namespace DS_PLUS_COMPILER.Src
         public void ErroSemantico(string erroMSG, int linha)
         {
             string erro = string.Format("\nErro na linha {1} -> {0} \n", erroMSG, linha);
-
             this.LogSemantico += erro;
 
-            Console.Write(erro);
-
-            //Gera arquivo de log da analise semantico
-            File.PrintFile(this.LogSemantico, "AnaliseSemanticoLog.txt");
+            PrintLogTabela();
+            PrintLogSemantico();
 
             Environment.Exit(1);
         }
 
         private void InicializaLogTS()
         {
-            string inicio = "-----------(INICIO)-PRINT-TABELA-DE-SIMBOLOS------------------\n\n";
+            string inicio = "\n\n-----------(INICIO)-PRINT-TABELA-DE-SIMBOLOS------------------\n\n";
             LogTabelaSimbolo += inicio;
 
             string cabecalho = "NOME           TIPO        ESCOPO        INICIALIZADA    ATIVO      SITUAÇÃO\n\n";
@@ -190,9 +187,7 @@ namespace DS_PLUS_COMPILER.Src
         }
 
         public void PrintLogSemantico()
-        {
-            LogSemantico += "\nPROGRAMA VÁLIDO SEMANTICAMENTE!";
-
+        {           
             Console.Write(LogSemantico + "\n\n");
 
             //Gera arquivo de log da analise semantica

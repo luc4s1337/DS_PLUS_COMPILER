@@ -1,5 +1,5 @@
 main()
-	var int _teste1 = 3;
+	var int _teste1 = 33.2;
 	var int _teste2 = 2;
 	var int _teste3;
 
@@ -13,7 +13,7 @@ main()
 		_teste3 = 1234;
 	end;
 
-	var float _teste_float = 23.4;
+	var float _teste_float = 23.2;
 	
 	print(_teste_float);
 

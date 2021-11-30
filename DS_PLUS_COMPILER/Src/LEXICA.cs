@@ -243,7 +243,7 @@ namespace DS_PLUS_COMPILER.Src
 							this.LexemaAtual += ch;
 
 							//se for numero real
-							if (this.Buffer[this.BufferIndex + 1] == '.')
+							if (this.Buffer[this.BufferIndex + 1] == '.' || this.Buffer[this.BufferIndex] == '.')
 							{
 								this.Estado = 2;
 							}

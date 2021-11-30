@@ -48,8 +48,9 @@ namespace DS_PLUS_COMPILER.Src
 
             Console.Write(fim);
 
-            Semantico.PrintLogTabela(); 
-            Semantico.PrintLogSemantico();
+            Semantico.PrintLogTabela();
+            Semantico.LogSemantico += "\nPROGRAMA VÁLIDO SEMANTICAMENTE!\n";
+            Semantico.PrintLogSemantico();            
         }
         #endregion
                 
@@ -208,7 +209,7 @@ namespace DS_PLUS_COMPILER.Src
                             Semantico.ErroSemantico(string.Format("Váriavel {0} já declarada.", Tokens[TokensIndex].Lexema), Tokens[TokensIndex].Linha);
                         }                       
 
-                        //valida se a Id que sera atribuida eh do mesmo tipo da variavel
+                        //SEMANTICO -> valida se a Id que sera atribuida eh do mesmo tipo da variavel
                         if (Tokens[TokensIndex+2].TokenCodigo == Enums.Tokens.ID) 
                         {
                             var simbolo = Semantico.BuscarSimbolo(Tokens[TokensIndex+2].Lexema);
@@ -230,22 +231,14 @@ namespace DS_PLUS_COMPILER.Src
                                 if (simbolo.Tipo != Tokens[TokensIndex - 1].TokenCodigo) 
                                 {
                                     Semantico.GravarLogSemantico(EstruturaAtual, Tokens[TokensIndex + 2].Lexema, "atribuicao", "ERRO");
-                                    Semantico.ErroSemantico(string.Format("Tipo diferente da variavel declarada {0}.", Tokens[TokensIndex].Lexema), Tokens[TokensIndex - 1].Linha);
+                                    Semantico.ErroSemantico(string.Format("Tipo diferente da variavel declarada {0}.", Tokens[TokensIndex].Lexema), Tokens[TokensIndex].Linha);
                                 }
                                 else
                                 {
                                     Semantico.GravarLogSemantico(EstruturaAtual, Tokens[TokensIndex + 2].Lexema, "Tipos", "OK");
                                 }
                             }
-                        }
-
-                        //verifica se o literal eh do mesmo tipo da variavel
-                        if (Tokens[TokensIndex + 2].TokenCodigo == Enums.Tokens.LIT_CHAR ||
-                            Tokens[TokensIndex + 2].TokenCodigo == Enums.Tokens.LIT_FLT ||
-                            Tokens[TokensIndex + 2].TokenCodigo == Enums.Tokens.LIT_INT ||
-                            Tokens[TokensIndex + 2].TokenCodigo == Enums.Tokens.LIT_STR) 
-                        {
-                        }
+                        }                                                          
                     }
 
                     TokensIndex++;
@@ -267,6 +260,65 @@ namespace DS_PLUS_COMPILER.Src
                 )
             {
                 Validado("literal", Tokens[TokensIndex].Lexema);
+
+                var simboloToVerify = Semantico.BuscarSimbolo(Tokens[TokensIndex-2].Lexema);
+
+                if (simboloToVerify != null) 
+                {
+                    //SEMANTICO -> verifica se o literal eh do mesmo tipo da variavel
+                    switch (simboloToVerify.Tipo)
+                    {
+                        case Enums.Tokens.PR_CHAR:
+                            if (Tokens[TokensIndex].TokenCodigo != Enums.Tokens.LIT_CHAR)
+                            {
+                                Semantico.GravarLogSemantico(EstruturaAtual, Tokens[TokensIndex-2].Lexema, "atribuicao", "ERRO");
+                                Semantico.ErroSemantico(string.Format("Tipo diferente da variavel declarada {0}.", Tokens[TokensIndex-2].Lexema), Tokens[TokensIndex-2].Linha);
+                            }
+                            else
+                            {
+                                Semantico.GravarLogSemantico(EstruturaAtual, Tokens[TokensIndex-2].Lexema, "atribuicao", "OK");
+                            }
+
+                            break;
+                        case Enums.Tokens.PR_FLT:
+                            if (Tokens[TokensIndex].TokenCodigo != Enums.Tokens.LIT_FLT)
+                            {
+                                Semantico.GravarLogSemantico(EstruturaAtual, Tokens[TokensIndex-2].Lexema, "atribuicao", "ERRO");
+                                Semantico.ErroSemantico(string.Format("Tipo diferente da variavel declarada {0}.", Tokens[TokensIndex-2].Lexema), Tokens[TokensIndex-2].Linha);
+                            }
+                            else
+                            {
+                                Semantico.GravarLogSemantico(EstruturaAtual, Tokens[TokensIndex-2].Lexema, "atribuicao", "OK");
+                            }
+
+                            break;
+                        case Enums.Tokens.PR_INT:
+                            if (Tokens[TokensIndex].TokenCodigo != Enums.Tokens.LIT_INT)
+                            {
+                                Semantico.GravarLogSemantico(EstruturaAtual, Tokens[TokensIndex-2].Lexema, "atribuicao", "ERRO");
+                                Semantico.ErroSemantico(string.Format("Tipo diferente da variavel declarada {0}.", Tokens[TokensIndex-2].Lexema), Tokens[TokensIndex-2].Linha);
+                            }
+                            else
+                            {
+                                Semantico.GravarLogSemantico(EstruturaAtual, Tokens[TokensIndex-2].Lexema, "atribuicao", "OK");
+                            }
+
+                            break;
+                        case Enums.Tokens.PR_STR:
+                            if (Tokens[TokensIndex].TokenCodigo != Enums.Tokens.LIT_STR)
+                            {
+                                Semantico.GravarLogSemantico(EstruturaAtual, Tokens[TokensIndex-2].Lexema, "atribuicao", "ERRO");
+                                Semantico.ErroSemantico(string.Format("Tipo diferente da variavel declarada {0}.", Tokens[TokensIndex-2].Lexema), Tokens[TokensIndex-2].Linha);
+                            }
+                            else
+                            {
+                                Semantico.GravarLogSemantico(EstruturaAtual, Tokens[TokensIndex-2].Lexema, "atribuicao", "OK");
+                            }
+
+                            break;
+                    }
+                }               
+
                 TokensIndex++;
             }
             else 
