@@ -11,10 +11,12 @@ Main           _teste2             inicializada        OK
 Main           _teste1             declarada           OK
 Main           _teste1             inicializada        OK
 Main           _teste_float        declarada           OK
+Main           _teste_float        inicializada        OK
 Main           _i                  declarada           OK
 Main           _i                  inicializada        OK
 Main           _int_local          declarada           OK
 Main           _int_local          inicializada        OK
-Main           _int_local2         declarada           ERRO
+Main           _int_local2         declarada           OK
+Main           _int_local2         inicializada        OK
 
-Erro na linha 25 -> Váriavel _int_local2 não declarada. 
+PROGRAMA VÁLIDO SEMANTICAMENTE!

@@ -15,14 +15,17 @@ main()
 
 	var float _teste_float;
 
+	_teste_float = 23.4;
+	
 	print(_teste_float);
 
 	var int _i = 0;
 
 	while _i < 10 do 
 		var int _int_local = 34;
+		var int _int_local2 = 2;
 
 		var int _int3 = _int_local + _int_local2;
 
 		print("teste de looping");
-	loop;
+	loop; 

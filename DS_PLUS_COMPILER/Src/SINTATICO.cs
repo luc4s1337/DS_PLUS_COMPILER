@@ -189,6 +189,8 @@ namespace DS_PLUS_COMPILER.Src
 
                             if (!simbolo.Inicializada) 
                             {
+                                Semantico.GravarLogSemantico(EstruturaAtual, Tokens[TokensIndex].Lexema, "inicializada", "ERRO");
+                                Semantico.ErroSemantico(string.Format("Váriavel {0} não inicializada.", Tokens[TokensIndex].Lexema), Tokens[TokensIndex].Linha);
                             }
                             else 
                             {

@@ -191,6 +191,8 @@ namespace DS_PLUS_COMPILER.Src
 
         public void PrintLogSemantico()
         {
+            LogSemantico += "\nPROGRAMA VÁLIDO SEMANTICAMENTE!";
+
             Console.Write(LogSemantico + "\n\n");
 
             //Gera arquivo de log da analise semantica
