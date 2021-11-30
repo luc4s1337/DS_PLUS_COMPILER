@@ -115,13 +115,6 @@ namespace DS_PLUS_COMPILER.Src
             EspecTipo();
             Var(true);
 
-            //SIMBOLO*
-            Semantico.BuscarSimbolo(Tokens[TokensIndex - 1].Lexema);
-
-            string status = "Inserindo no " + this.Semantico.EscopoAtual; 
-
-            Semantico.InserirSimbolo(Tokens[TokensIndex-2].Lexema, Tokens[TokensIndex-1].Lexema, status);
-
             if (Tokens[TokensIndex].TokenCodigo == Enums.Tokens.OP_ATRI)
             {
                 ComAtribui();
@@ -174,7 +167,7 @@ namespace DS_PLUS_COMPILER.Src
                 {
                     Validado("decl-var", Tokens[TokensIndex].Lexema);
 
-                    if (!isDecl) 
+                    if (!isDecl)
                     {
                         var simbolo = Semantico.BuscarSimbolo(Tokens[TokensIndex].Lexema);
 
@@ -183,21 +176,77 @@ namespace DS_PLUS_COMPILER.Src
                             Semantico.GravarLogSemantico(EstruturaAtual, Tokens[TokensIndex].Lexema, "declarada", "ERRO");
                             Semantico.ErroSemantico(string.Format("Váriavel {0} não declarada.", Tokens[TokensIndex].Lexema), Tokens[TokensIndex].Linha);
                         }
-                        else 
+                        else
                         {
-                            Semantico.GravarLogSemantico(EstruturaAtual, Tokens[TokensIndex].Lexema, "declarada", "OK");
+                            Semantico.GravarLogSemantico(EstruturaAtual, Tokens[TokensIndex].Lexema, "busca na tabela", "OK");
 
-                            if (!simbolo.Inicializada) 
+                            if (!simbolo.Inicializada)
                             {
                                 Semantico.GravarLogSemantico(EstruturaAtual, Tokens[TokensIndex].Lexema, "inicializada", "ERRO");
                                 Semantico.ErroSemantico(string.Format("Váriavel {0} não inicializada.", Tokens[TokensIndex].Lexema), Tokens[TokensIndex].Linha);
                             }
-                            else 
+                            else
                             {
                                 Semantico.GravarLogSemantico(EstruturaAtual, Tokens[TokensIndex].Lexema, "inicializada", "OK");
                             }
-                        }                        
-                    }                    
+                        }
+                    }
+                    else
+                    {
+                        var simboloToInsert = Semantico.BuscarSimbolo(Tokens[TokensIndex].Lexema);
+
+                        if (simboloToInsert == null)
+                        {
+                            string status = "Inserindo no " + this.Semantico.EscopoAtual;
+
+                            Semantico.InserirSimbolo(Tokens[TokensIndex - 1].Lexema, Tokens[TokensIndex].Lexema, status);
+                            Semantico.GravarLogSemantico(EstruturaAtual, Tokens[TokensIndex].Lexema, "declarada", "OK");
+                        }
+                        else 
+                        {
+                            Semantico.GravarLogSemantico(EstruturaAtual, Tokens[TokensIndex].Lexema, "declarada", "ERRO");
+                            Semantico.ErroSemantico(string.Format("Váriavel {0} já declarada.", Tokens[TokensIndex].Lexema), Tokens[TokensIndex].Linha);
+                        }                       
+
+                        //valida se a Id que sera atribuida eh do mesmo tipo da variavel
+                        if (Tokens[TokensIndex+2].TokenCodigo == Enums.Tokens.ID) 
+                        {
+                            var simbolo = Semantico.BuscarSimbolo(Tokens[TokensIndex+2].Lexema);
+
+                            if (simbolo == null)
+                            {
+                                Semantico.GravarLogSemantico(EstruturaAtual, Tokens[TokensIndex + 2].Lexema, "declarada", "ERRO");
+                                Semantico.ErroSemantico(string.Format("Váriavel {0} não declarada.", Tokens[TokensIndex + 2].Lexema), Tokens[TokensIndex + 2].Linha);
+                            }
+                            else 
+                            {
+                                if (!simbolo.Inicializada)
+                                {
+                                    Semantico.ErroSemantico(string.Format("Váriavel {0} não inicializada.", Tokens[TokensIndex+2].Lexema), Tokens[TokensIndex+2].Linha);
+                                }
+
+                                Semantico.GravarLogSemantico(EstruturaAtual, Tokens[TokensIndex + 2].Lexema, "busca na tabela", "OK");
+
+                                if (simbolo.Tipo != Tokens[TokensIndex - 1].TokenCodigo) 
+                                {
+                                    Semantico.GravarLogSemantico(EstruturaAtual, Tokens[TokensIndex + 2].Lexema, "atribuicao", "ERRO");
+                                    Semantico.ErroSemantico(string.Format("Tipo diferente da variavel declarada {0}.", Tokens[TokensIndex].Lexema), Tokens[TokensIndex - 1].Linha);
+                                }
+                                else
+                                {
+                                    Semantico.GravarLogSemantico(EstruturaAtual, Tokens[TokensIndex + 2].Lexema, "Tipos", "OK");
+                                }
+                            }
+                        }
+
+                        //verifica se o literal eh do mesmo tipo da variavel
+                        if (Tokens[TokensIndex + 2].TokenCodigo == Enums.Tokens.LIT_CHAR ||
+                            Tokens[TokensIndex + 2].TokenCodigo == Enums.Tokens.LIT_FLT ||
+                            Tokens[TokensIndex + 2].TokenCodigo == Enums.Tokens.LIT_INT ||
+                            Tokens[TokensIndex + 2].TokenCodigo == Enums.Tokens.LIT_STR) 
+                        {
+                        }
+                    }
 
                     TokensIndex++;
                 }

@@ -3,20 +3,30 @@
 ESTRUTURA      LEXEMA(S)           TIPO                SITUAÇÃO
 
 Main           _teste1             declarada           OK
+Main           _teste2             declarada           OK
+Main           _teste3             declarada           OK
+Main           _teste1             busca na tabela     OK
 Main           _teste1             inicializada        OK
-Main           _teste2             declarada           OK
+Main           _teste2             busca na tabela     OK
 Main           _teste2             inicializada        OK
-Main           _teste2             declarada           OK
+Main           _teste2             busca na tabela     OK
 Main           _teste2             inicializada        OK
-Main           _teste1             declarada           OK
+Main           _teste1             busca na tabela     OK
 Main           _teste1             inicializada        OK
 Main           _teste_float        declarada           OK
+Main           _teste_float        busca na tabela     OK
 Main           _teste_float        inicializada        OK
 Main           _i                  declarada           OK
+Main           _i                  busca na tabela     OK
 Main           _i                  inicializada        OK
 Main           _int_local          declarada           OK
-Main           _int_local          inicializada        OK
 Main           _int_local2         declarada           OK
+Main           _int3               declarada           OK
+Main           _int_local          busca na tabela     OK
+Main           _int_local          Tipos               OK
+Main           _int_local          busca na tabela     OK
+Main           _int_local          inicializada        OK
+Main           _int_local2         busca na tabela     OK
 Main           _int_local2         inicializada        OK
 
 PROGRAMA VÁLIDO SEMANTICAMENTE!

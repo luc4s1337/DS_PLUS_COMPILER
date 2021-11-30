@@ -51,8 +51,6 @@
 |             decl-var       |         var                  |           OK
 |             espec-tipo     |         float                |           OK
 |             decl-var       |         _teste_float         |           OK
-|             decl-var       |         ;                    |           OK
-|             com-atr        |         _teste_float         |           OK
 |             com-atr        |         =                    |           OK
 |             literal        |         23.4                 |           OK
 |             decl-var       |         ;                    |           OK

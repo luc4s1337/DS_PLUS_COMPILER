@@ -59,7 +59,7 @@ namespace DS_PLUS_COMPILER.Src
 
         public void InserirSimbolo(string tipo, string nomeVariavel, string status)
         {
-            TipoVariavel tipoSimbolo = RetornaTipo(tipo).Value;
+            Enums.Tokens tipoSimbolo = RetornaTipo(tipo).Value;
 
             Simbolo simboloToInsert = new Simbolo(SimbolosId, nomeVariavel, tipoSimbolo, EscopoAtual, false, true);            
 
@@ -83,23 +83,23 @@ namespace DS_PLUS_COMPILER.Src
             GravarLogTabela(saida, TabelaDeSimbolos.ElementAt(id).Value);
         }
 
-        private TipoVariavel? RetornaTipo(string tipo)
+        private Enums.Tokens? RetornaTipo(string tipo)
         {
-            TipoVariavel? tipoToReturn;
+            Enums.Tokens? tipoToReturn;
 
             switch (tipo)
             {
                 case "int":
-                    tipoToReturn = TipoVariavel.INT;
+                    tipoToReturn = Enums.Tokens.PR_INT;
                     break;
                 case "float":
-                    tipoToReturn = TipoVariavel.FLOAT;
+                    tipoToReturn = Enums.Tokens.PR_FLT;
                     break;
                 case "string":
-                    tipoToReturn = TipoVariavel.STRING;
+                    tipoToReturn = Enums.Tokens.PR_INT;
                     break;
                 case "char":
-                    tipoToReturn = TipoVariavel.CHAR;
+                    tipoToReturn = Enums.Tokens.PR_CHAR;
                     break;
                 default:
                     tipoToReturn = null;
