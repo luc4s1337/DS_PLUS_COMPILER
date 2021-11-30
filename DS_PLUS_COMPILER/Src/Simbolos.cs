@@ -24,14 +24,14 @@ namespace DS_PLUS_COMPILER.Src
         public bool Inicializada { get; set; }
         public bool Ativo { get; set; }
 
-        public Simbolo(int _id, string _nomeVariavel, TipoVariavel _tipo, string _escopo, bool _inicializada, bool _removida) 
+        public Simbolo(int _id, string _nomeVariavel, TipoVariavel _tipo, string _escopo, bool _inicializada, bool _ativo) 
         {
             ID = _id;
             NomeVariavel = _nomeVariavel;
             Tipo = _tipo;
             Escopo = _escopo;
             Inicializada = _inicializada;
-            Ativo = _removida;
+            Ativo = _ativo;
         }
     }
 }

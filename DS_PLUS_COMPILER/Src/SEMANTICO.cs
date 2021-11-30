@@ -11,41 +11,75 @@ namespace DS_PLUS_COMPILER.Src
     {
         public Dictionary<int, Simbolo> TabelaDeSimbolos { get; set; } = new Dictionary<int, Simbolo>();
         public int SimbolosId { get; set; } = 0;
-        public string Log { get; set; } = "";
+        public string LogTabelaSimbolo { get; set; } = "";
+        public string LogSemantico { get; set; } = "";
         public string EscopoAtual { get; set; } = "Global";
 
         public SEMANTICO() 
         {
-        }
-
-        public void StartAnaliseSemantica() 
-        {
+            InicializaLog();
         }
 
         #region funcoesTabelaSimbolo
-        private Simbolo BuscarSimbolo(int id)
+        public Simbolo BuscarSimbolo(int id)
         {
             return TabelaDeSimbolos.ElementAt(id).Value;
+        }              
+
+        public Simbolo BuscarSimbolo(string nomeVariavel)
+        {
+            Simbolo simboloToReturn = null;
+
+            foreach (var item in TabelaDeSimbolos) 
+            {
+                if (item.Value.NomeVariavel == nomeVariavel && item.Value.Ativo) 
+                {
+                    simboloToReturn = item.Value;
+                }
+            }
+
+            return simboloToReturn;
         }
-               
-        private void InserirSimbolo(string tipo, string nomeVariavel)
+
+        public List<Simbolo> BuscarSimboloPorEscopo(string escopo)
+        {
+            List<Simbolo> simboloToReturn = new List<Simbolo>();
+
+            foreach (var item in TabelaDeSimbolos)
+            {
+                if (item.Value.Escopo == escopo)
+                {
+                    simboloToReturn.Add(item.Value);
+                }
+            }
+
+            return simboloToReturn;
+        }
+
+        public void InserirSimbolo(string tipo, string nomeVariavel, string status)
         {
             TipoVariavel tipoSimbolo = RetornaTipo(tipo).Value;
 
-            Simbolo simboloToInsert = new Simbolo(SimbolosId, nomeVariavel, tipoSimbolo, EscopoAtual, false, false);            
+            Simbolo simboloToInsert = new Simbolo(SimbolosId, nomeVariavel, tipoSimbolo, EscopoAtual, false, true);            
 
             TabelaDeSimbolos.Add(SimbolosId, simboloToInsert);
+            GravarLogTabela(status, simboloToInsert);
             SimbolosId++;
         }
 
-        private void AtualizarSimbolo(int id, bool _inicializada)
+        public void AtualizarSimbolo(int id, bool _inicializada)
         {
+            Simbolo simbolo = BuscarSimbolo(id);
+                
             TabelaDeSimbolos.ElementAt(id).Value.Inicializada = _inicializada;
+
+            GravarLogTabela("Inicializa a variavel", simbolo);
         }
 
-        private void RemoverSimbolo(int id)
+        public void RemoverSimbolo(int id, string saida)
         {
             TabelaDeSimbolos.ElementAt(id).Value.Ativo = false;
+            GravarLogTabela(saida, TabelaDeSimbolos.ElementAt(id).Value);
         }
 
         private TipoVariavel? RetornaTipo(string tipo)
@@ -76,43 +110,86 @@ namespace DS_PLUS_COMPILER.Src
         #endregion
 
         #region Prints
-        private void Validado(string bloco, string lexema)
+        private void InicializaLog() 
         {
-            string str = "|             " + bloco;
+            string inicio = "-----------(INICIO)-PRINT-TABELA-DE-SIMBOLOS------------------\n\n";
+            LogTabelaSimbolo += inicio;
 
-            for (int i = 0; i < 15 - bloco.Length; i++)
-            {
-                str += " ";
-            }
-
-            str += "|         " + lexema + "";
-
-            for (int i = 0; i < 21 - lexema.Length; i++)
-            {
-                str += " ";
-            }
-
-            str += "|           OK\n";
-
-            Console.Write(str);
-            this.Log += str;
+            string cabecalho = "NOME           TIPO        ESCOPO        INICIALIZADA    ATIVO      STATUS\n\n";
+            LogTabelaSimbolo += cabecalho;
         }
 
-        private void Erro(string esperado, string estrutura, string lexema)
-        {         
-            string erro = string.Format("\nErro semantico '{1}', Esperado '{0}' encontrado o token '{2}'.\n", esperado, estrutura, lexema);
+        private void GravarLogTabela(string status, Simbolo simbolo) 
+        {
+            string log = simbolo.NomeVariavel;
 
-            this.Log += erro;
+            for (int i = 0; i < 15 - simbolo.NomeVariavel.Length; i++)
+            {
+                log += " ";
+            }
 
-            Console.Write(erro);
+            log += simbolo.Tipo.ToString();
+
+            for (int i = 0; i < 12 - simbolo.Tipo.ToString().Length; i++)
+            {
+                log += " ";
+            }
+
+            log += simbolo.Escopo;
+
+            for (int i = 0; i < 14 - simbolo.Escopo.Length; i++)
+            {
+                log += " ";
+            }
+
+            log += simbolo.Inicializada.ToString();
+
+            for (int i = 0; i < 16 - simbolo.Inicializada.ToString().Length; i++)
+            {
+                log += " ";
+            }
+
+            log += simbolo.Ativo.ToString();
+
+            for (int i = 0; i < 11 - simbolo.Ativo.ToString().Length; i++)
+            {
+                log += " ";
+            }
+            log += status;
+
+            this.LogTabelaSimbolo += log+"\n";
+        }
+
+        public void PrintLogTabela()
+        {            
+            Console.Write(LogTabelaSimbolo+"\n\n");
 
             //Le o arquivo de entrada
             File fileReader = new(Config.InputPath);
 
-            //Gera arquivo de log da analise semantico
-            fileReader.PrintFile(this.Log, "AnaliseSemanticoLog.txt");
+            //Gera arquivo de log da analise da tabela de simbolos
+            fileReader.PrintFile(this.LogTabelaSimbolo, "TabelaSimbolosLog.txt");
+        }
 
-            Environment.Exit(1);
+        public void PrintLogSemantico()
+        {
+            string inicio = "-----------(INICIO)-PRINT-ANALISE-SEMANTICA------------------\n\n";
+            LogTabelaSimbolo += inicio;
+            Console.Write(inicio);
+
+            string cabecalho = "";
+            cabecalho += "              BLOCO";
+            cabecalho += "                    LEXEMA";
+            cabecalho += "                           SITUAÇÃO\n\n";
+
+            LogTabelaSimbolo += cabecalho;
+            Console.Write(cabecalho);
+
+            //Le o arquivo de entrada
+            File fileReader = new(Config.InputPath);
+
+            //Gera arquivo de log da analise da tabela de simbolos
+            fileReader.PrintFile(this.LogTabelaSimbolo, "AnaliseSemanticoLog.txt");
         }
         #endregion
     }

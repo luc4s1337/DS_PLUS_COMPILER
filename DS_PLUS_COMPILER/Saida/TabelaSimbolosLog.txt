@@ -22,7 +22,3 @@ _teste2        INT         Global        True            False      Saida no mai
 _teste3        INT         Global        True            False      Saida no main.
 _teste_float   FLOAT       Global        False           False      Saida no main.
 _i             INT         Global        True            False      Saida no main.
------------(INICIO)-PRINT-ANALISE-SEMANTICA------------------
-
-              BLOCO                    LEXEMA                           SITUAÇÃO
-

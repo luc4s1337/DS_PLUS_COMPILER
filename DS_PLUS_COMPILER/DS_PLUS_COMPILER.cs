@@ -33,17 +33,7 @@ namespace DS_PLUS_COMPILER
 
             //Gera arquivo de log da analise sintatica
             fileReader.PrintFile(sintaticoPrint, "AnaliseSintaticoLog.txt");
-
-            //Cria o analisador semantico e utilizando a lista de tokens
-            SEMANTICO analisadorSemantico = new(analisadorSintatico.Tokens);
-
-            //Inicia a analise semantica
-            analisadorSemantico.StartAnaliseSemantica();
-            string semanticoPrint = analisadorSemantico.Log;
-
-            //Gera arquivo de log da analise semantico
-            fileReader.PrintFile(semanticoPrint, "AnaliseSemanticoLog.txt");
-
+                        
             Console.ReadKey();
 
             return 0;

@@ -14,7 +14,7 @@ namespace DS_PLUS_COMPILER.Src
         public List<Token> Tokens { get; set; }
         public int TokensIndex { get; set; } = 0;
         public string Log { get; set; } = "";
-        public SEMANTICO sintatico { get; set; } = new SEMANTICO();
+        public SEMANTICO semantico { get; set; } = new SEMANTICO();
 
         public SINTATICO(List<Token> _tokens)
         {
@@ -46,6 +46,9 @@ namespace DS_PLUS_COMPILER.Src
             Log += fim;
 
             Console.Write(fim);
+
+            semantico.PrintLogTabela(); 
+            semantico.PrintLogSemantico();
         }
         #endregion
                 
@@ -56,6 +59,7 @@ namespace DS_PLUS_COMPILER.Src
             {
                 Validado("programa", Tokens[TokensIndex].Lexema);
                 Decl();
+                RemoveSimbolosMain();            
             }
             else 
             {
@@ -109,6 +113,13 @@ namespace DS_PLUS_COMPILER.Src
         {
             EspecTipo();
             Var();
+
+            //SIMBOLO*
+            semantico.BuscarSimbolo(Tokens[TokensIndex - 1].Lexema);
+
+            string status = "Inserindo no " + this.semantico.EscopoAtual; 
+
+            semantico.InserirSimbolo(Tokens[TokensIndex-2].Lexema, Tokens[TokensIndex-1].Lexema, status);
 
             if (Tokens[TokensIndex].TokenCodigo == Enums.Tokens.OP_ATRI)
             {
@@ -276,6 +287,7 @@ namespace DS_PLUS_COMPILER.Src
             {
                 Validado("com-sel", Tokens[TokensIndex].Lexema);
                 TokensIndex++;
+                semantico.EscopoAtual = "Local";
                 Bloco();
 
                 switch (Tokens[TokensIndex].TokenCodigo) 
@@ -294,6 +306,8 @@ namespace DS_PLUS_COMPILER.Src
                             if (Tokens[TokensIndex].TokenCodigo == Enums.Tokens.PONTO_VIRGULA)
                             {
                                 Validado("com-sel", Tokens[TokensIndex].Lexema);
+                                semantico.EscopoAtual = "Global";
+                                RemoveSimbolosWHILE();
                                 TokensIndex++;
                             }
                             else 
@@ -314,6 +328,7 @@ namespace DS_PLUS_COMPILER.Src
                         {
                             Validado("com-sel", Tokens[TokensIndex].Lexema);
                             TokensIndex++;
+                            semantico.EscopoAtual = "Global";
                         }
                         else
                         {
@@ -339,7 +354,8 @@ namespace DS_PLUS_COMPILER.Src
             if (Tokens[TokensIndex].TokenCodigo == Enums.Tokens.PR_DO)
             {
                 Validado("com-rep", Tokens[TokensIndex].Lexema);
-                TokensIndex++;                
+                TokensIndex++;
+                semantico.EscopoAtual = "Local";
                 Bloco();
 
                 if (Tokens[TokensIndex].TokenCodigo == Enums.Tokens.PR_LOOP)
@@ -350,6 +366,8 @@ namespace DS_PLUS_COMPILER.Src
                     if (Tokens[TokensIndex].TokenCodigo == Enums.Tokens.PONTO_VIRGULA)
                     {
                         Validado("com-rep", Tokens[TokensIndex].Lexema);
+                        semantico.EscopoAtual = "Global";
+                        RemoveSimbolosWHILE();
                         TokensIndex++;                        
                     }
                     else
@@ -421,9 +439,16 @@ namespace DS_PLUS_COMPILER.Src
         private void ComAtribui()
         {
             if (Tokens[TokensIndex].TokenCodigo == Enums.Tokens.OP_ATRI)
-            {                
+            {
                 Validado("com-atr", Tokens[TokensIndex].Lexema);
                 TokensIndex++;
+
+                Simbolo simbolo = semantico.BuscarSimbolo(Tokens[TokensIndex - 2].Lexema);
+
+                if (simbolo != null && !simbolo.Inicializada)
+                {
+                    semantico.AtualizarSimbolo(simbolo.ID, true);
+                }                
 
                 Exp();
 
@@ -640,8 +665,38 @@ namespace DS_PLUS_COMPILER.Src
             {
                 Erro("esperado um dos seguintes operadores: *, / ou %", "op-soma", Tokens[TokensIndex].Lexema);
             }
-        }               
+        }
         #endregion
+
+        private void RemoveSimbolosMain() 
+        {
+            List<Simbolo> simbolosGlobais = semantico.BuscarSimboloPorEscopo("Global");
+
+            foreach (var item in simbolosGlobais)
+            {
+                semantico.RemoverSimbolo(item.ID, "Saida no main.");
+            }
+        }
+
+        private void RemoveSimbolosIF()
+        {
+            List<Simbolo> simbolosGlobais = semantico.BuscarSimboloPorEscopo("Local");
+
+            foreach (var item in simbolosGlobais)
+            {
+                semantico.RemoverSimbolo(item.ID, "Saida no if.");
+            }
+        }
+
+        private void RemoveSimbolosWHILE()
+        {
+            List<Simbolo> simbolosGlobais = semantico.BuscarSimboloPorEscopo("Local");
+
+            foreach (var item in simbolosGlobais)
+            {
+                semantico.RemoverSimbolo(item.ID, "Saida no while.");
+            }
+        }
 
         #region PRINTS
         private void Validado(string bloco, string lexema)
