@@ -1,6 +1,6 @@
 main()
-	var int _teste1 = 33.2;
-	var int _teste2 = 2;
+	var int _teste1 = 5 - 2 + 1 * 5;
+	var int _teste2 = 2 / 1;
 	var int _teste3;
 
 	if _teste1 > _teste2 then

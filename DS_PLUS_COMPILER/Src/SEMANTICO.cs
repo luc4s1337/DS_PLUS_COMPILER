@@ -96,13 +96,36 @@ namespace DS_PLUS_COMPILER.Src
                     tipoToReturn = Enums.Tokens.PR_FLT;
                     break;
                 case "string":
-                    tipoToReturn = Enums.Tokens.PR_INT;
+                    tipoToReturn = Enums.Tokens.PR_STR;
                     break;
                 case "char":
                     tipoToReturn = Enums.Tokens.PR_CHAR;
                     break;
                 default:
                     tipoToReturn = null;
+                    break;
+            }
+
+            return tipoToReturn;
+        }
+
+        public Enums.Tokens? TipoCast(Enums.Tokens tipo)
+        {
+            Enums.Tokens? tipoToReturn = null;
+
+            switch (tipo) 
+            {
+                case Enums.Tokens.PR_INT:
+                    tipoToReturn = Enums.Tokens.LIT_INT;
+                    break;
+                case Enums.Tokens.PR_FLT:
+                    tipoToReturn = Enums.Tokens.LIT_FLT;
+                    break;
+                case Enums.Tokens.PR_STR:
+                    tipoToReturn = Enums.Tokens.LIT_STR;
+                    break;
+                case Enums.Tokens.PR_CHAR:
+                    tipoToReturn = Enums.Tokens.LIT_CHAR;
                     break;
             }
 

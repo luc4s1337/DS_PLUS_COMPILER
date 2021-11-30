@@ -200,7 +200,7 @@ namespace DS_PLUS_COMPILER.Src
                         {
                             string status = "Inserindo no " + this.Semantico.EscopoAtual;
 
-                            Semantico.InserirSimbolo(Tokens[TokensIndex - 1].Lexema, Tokens[TokensIndex].Lexema, status);
+                            Semantico.InserirSimbolo(Tokens[TokensIndex-1].Lexema, Tokens[TokensIndex].Lexema, status);
                             Semantico.GravarLogSemantico(EstruturaAtual, Tokens[TokensIndex].Lexema, "declarada", "OK");
                         }
                         else 
@@ -228,7 +228,7 @@ namespace DS_PLUS_COMPILER.Src
 
                                 Semantico.GravarLogSemantico(EstruturaAtual, Tokens[TokensIndex + 2].Lexema, "busca na tabela", "OK");
 
-                                if (simbolo.Tipo != Tokens[TokensIndex - 1].TokenCodigo) 
+                                if (simbolo.Tipo != Tokens[TokensIndex-1].TokenCodigo) 
                                 {
                                     Semantico.GravarLogSemantico(EstruturaAtual, Tokens[TokensIndex + 2].Lexema, "atribuicao", "ERRO");
                                     Semantico.ErroSemantico(string.Format("Tipo diferente da variavel declarada {0}.", Tokens[TokensIndex].Lexema), Tokens[TokensIndex].Linha);
@@ -366,6 +366,7 @@ namespace DS_PLUS_COMPILER.Src
 
         private void Comando()
         {
+            this.EstruturaAtual = "Main";
             switch (Tokens[TokensIndex].TokenCodigo) 
             {
                 case Enums.Tokens.PR_VAR:
@@ -409,6 +410,7 @@ namespace DS_PLUS_COMPILER.Src
                 
         private void ComSelec()
         {
+            this.EstruturaAtual = "ComSelec";
             Exp();
 
             if (Tokens[TokensIndex].TokenCodigo == Enums.Tokens.PR_THEN)
@@ -477,6 +479,7 @@ namespace DS_PLUS_COMPILER.Src
 
         private void ComRepeticao()
         {
+            this.EstruturaAtual = "ComRepeticao";
             Exp();
 
             if (Tokens[TokensIndex].TokenCodigo == Enums.Tokens.PR_DO)
@@ -516,6 +519,7 @@ namespace DS_PLUS_COMPILER.Src
 
         private void ComLeitura()
         {
+            this.EstruturaAtual = "ComLeitura";
             if (Tokens[TokensIndex].TokenCodigo == Enums.Tokens.ABRE_PARENTESES)
             {
                 Validado("com-lei", Tokens[TokensIndex].Lexema);
@@ -543,6 +547,7 @@ namespace DS_PLUS_COMPILER.Src
 
         private void ComEscrita()
         {
+            this.EstruturaAtual = "ComEscrita";
             if (Tokens[TokensIndex].TokenCodigo == Enums.Tokens.ABRE_PARENTESES)
             {
                 Validado("com-esc", Tokens[TokensIndex].Lexema);
@@ -754,6 +759,32 @@ namespace DS_PLUS_COMPILER.Src
                 Tokens[TokensIndex].TokenCodigo == Enums.Tokens.OP_SOMA)
             {
                 Validado("op-soma", Tokens[TokensIndex].Lexema);
+
+                //SEMANTICO -> valida as operacoes + & -
+                Enums.Tokens simboloEsquerdo, simboloDireito;
+
+                if (Tokens[TokensIndex - 1].TokenCodigo == Enums.Tokens.ID)
+                    simboloEsquerdo = Semantico.TipoCast(Semantico.BuscarSimbolo(Tokens[TokensIndex - 1].Lexema).Tipo).Value;
+                else
+                    simboloEsquerdo = Tokens[TokensIndex-1].TokenCodigo;
+
+                if (Tokens[TokensIndex+1].TokenCodigo == Enums.Tokens.ID)
+                    simboloDireito = Semantico.TipoCast(Semantico.BuscarSimbolo(Tokens[TokensIndex+1].Lexema).Tipo).Value;
+                else
+                    simboloDireito = Tokens[TokensIndex+1].TokenCodigo;
+
+                string lexemaLog = string.Format("{0} {2} {1}", simboloEsquerdo, simboloDireito, Tokens[TokensIndex].Lexema);
+
+                if (simboloEsquerdo != simboloDireito) 
+                {                  
+                    Semantico.GravarLogSemantico(EstruturaAtual, lexemaLog, "OpSoma", "ERRO");
+                    Semantico.ErroSemantico(string.Format("Operação {0} inválida semânticamente.", lexemaLog), Tokens[TokensIndex].Linha);
+                }
+                else
+                {
+                    Semantico.GravarLogSemantico(EstruturaAtual, lexemaLog, "OpSoma", "OK");
+                }
+
                 TokensIndex++;
             }
             else
@@ -772,6 +803,43 @@ namespace DS_PLUS_COMPILER.Src
                 Tokens[TokensIndex].TokenCodigo == Enums.Tokens.OP_IGUAL)
             {
                 Validado("op-relac", Tokens[TokensIndex].Lexema);
+
+                //SEMANTICO -> valida as operacoes <=, <, >, >=, !=, ==
+                Enums.Tokens simboloEsquerdo, simboloDireito;
+
+                if (Tokens[TokensIndex - 1].TokenCodigo == Enums.Tokens.ID)
+                    simboloEsquerdo = Semantico.TipoCast(Semantico.BuscarSimbolo(Tokens[TokensIndex - 1].Lexema).Tipo).Value;
+                else
+                    simboloEsquerdo = Tokens[TokensIndex - 1].TokenCodigo;
+
+                if (Tokens[TokensIndex + 1].TokenCodigo == Enums.Tokens.ID)
+                    simboloDireito = Semantico.TipoCast(Semantico.BuscarSimbolo(Tokens[TokensIndex + 1].Lexema).Tipo).Value;
+                else
+                    simboloDireito = Tokens[TokensIndex + 1].TokenCodigo;
+
+                string lexemaLog = string.Format("{0} {2} {1}", simboloEsquerdo, simboloDireito, Tokens[TokensIndex].Lexema);
+
+                if (Tokens[TokensIndex].TokenCodigo != Enums.Tokens.OP_DIFERENTE &&
+                    Tokens[TokensIndex].TokenCodigo != Enums.Tokens.OP_IGUAL) 
+                {
+                    if (simboloEsquerdo == Enums.Tokens.LIT_CHAR || simboloEsquerdo == Enums.Tokens.LIT_STR ||
+                        simboloDireito == Enums.Tokens.LIT_CHAR  || simboloDireito == Enums.Tokens.LIT_STR)
+                    {
+                        Semantico.GravarLogSemantico(EstruturaAtual, lexemaLog, "OpRelac", "ERRO");
+                        Semantico.ErroSemantico(string.Format("Operação {0} inválida semânticamente.", lexemaLog), Tokens[TokensIndex].Linha);
+                    }
+                }
+
+                if (simboloEsquerdo != simboloDireito)
+                {
+                    Semantico.GravarLogSemantico(EstruturaAtual, lexemaLog, "OpRelac", "ERRO");
+                    Semantico.ErroSemantico(string.Format("Operação {0} inválida semânticamente.", lexemaLog), Tokens[TokensIndex].Linha);
+                }
+                else
+                {
+                    Semantico.GravarLogSemantico(EstruturaAtual, lexemaLog, "OpRelac", "OK");
+                }
+
                 TokensIndex++;
             }
             else
@@ -786,7 +854,37 @@ namespace DS_PLUS_COMPILER.Src
                 Tokens[TokensIndex].TokenCodigo == Enums.Tokens.OP_DIV ||
                 Tokens[TokensIndex].TokenCodigo == Enums.Tokens.OP_MOD)
             {
-                Validado("op-mult", Tokens[TokensIndex].Lexema);
+                Validado("op-mult", Tokens[TokensIndex].Lexema);                
+
+                //SEMANTICO -> valida as operacoes *, /, %
+                Enums.Tokens simboloEsquerdo, simboloDireito;
+
+                if (Tokens[TokensIndex - 1].TokenCodigo == Enums.Tokens.ID)
+                    simboloEsquerdo = Semantico.TipoCast(Semantico.BuscarSimbolo(Tokens[TokensIndex - 1].Lexema).Tipo).Value;
+                else
+                    simboloEsquerdo = Tokens[TokensIndex - 1].TokenCodigo;
+
+                if (Tokens[TokensIndex + 1].TokenCodigo == Enums.Tokens.ID)
+                    simboloDireito = Semantico.TipoCast(Semantico.BuscarSimbolo(Tokens[TokensIndex + 1].Lexema).Tipo).Value;
+                else
+                    simboloDireito = Tokens[TokensIndex + 1].TokenCodigo;
+
+                string lexemaLog = string.Format("{0} {2} {1}", simboloEsquerdo, simboloDireito, Tokens[TokensIndex].Lexema);
+
+                if (simboloEsquerdo != simboloDireito ||
+                    simboloEsquerdo != Enums.Tokens.LIT_FLT &&
+                    simboloEsquerdo != Enums.Tokens.LIT_INT &&
+                    simboloDireito != Enums.Tokens.LIT_FLT &&
+                    simboloDireito != Enums.Tokens.LIT_INT)
+                {
+                    Semantico.GravarLogSemantico(EstruturaAtual, lexemaLog, "OpRelac", "ERRO");
+                    Semantico.ErroSemantico(string.Format("Operação {0} inválida semânticamente.", lexemaLog), Tokens[TokensIndex].Linha);
+                }
+                else
+                {
+                    Semantico.GravarLogSemantico(EstruturaAtual, lexemaLog, "OpRelac", "OK");
+                }
+
                 TokensIndex++;
             }
             else
