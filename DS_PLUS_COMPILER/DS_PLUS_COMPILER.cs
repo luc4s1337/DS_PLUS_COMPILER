@@ -4,7 +4,6 @@ using System;
 
 namespace DS_PLUS_COMPILER
 {
-
     class DS_PLUS_COMPILER
     {      
         static int Main(string[] args)
@@ -22,7 +21,7 @@ namespace DS_PLUS_COMPILER
             string lexicoPrint = analisadorLexico.PrintAnalise();
 
             //Gera arquivo de log da analise lexica
-            fileReader.PrintFile(lexicoPrint, "AnaliseLexicaLog.txt");
+            File.PrintFile(lexicoPrint, "AnaliseLexicaLog.txt");
 
             //Cria o analisador sintatico e utiliza a lista de tokens gerados no lexico
             SINTATICO analisadorSintatico = new(analisadorLexico.Tokens);
@@ -32,7 +31,7 @@ namespace DS_PLUS_COMPILER
             string sintaticoPrint = analisadorSintatico.Log;
 
             //Gera arquivo de log da analise sintatica
-            fileReader.PrintFile(sintaticoPrint, "AnaliseSintaticoLog.txt");
+            File.PrintFile(sintaticoPrint, "AnaliseSintaticoLog.txt");
                         
             Console.ReadKey();
 

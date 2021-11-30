@@ -15,12 +15,12 @@ main()
 
 	var float _teste_float;
 
-	scan(_teste_float);
+	print(_teste_float);
 
 	var int _i = 0;
 
 	while _i < 10 do 
-		var int _int_local = 34, _int_local2 = 20;
+		var int _int_local = 34;
 
 		var int _int3 = _int_local + _int_local2;
 

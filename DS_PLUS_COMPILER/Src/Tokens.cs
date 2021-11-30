@@ -69,6 +69,8 @@ namespace DS_PLUS_COMPILER.Src
         public Tokens TokenCodigo { get; set; }
         public string Lexema { get; set; }
 
+        public int Linha { get; set; }
+
         public Token(string _lexema)
         {
             this.Lexema = _lexema;

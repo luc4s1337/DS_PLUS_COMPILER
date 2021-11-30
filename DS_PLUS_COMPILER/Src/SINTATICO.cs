@@ -14,7 +14,8 @@ namespace DS_PLUS_COMPILER.Src
         public List<Token> Tokens { get; set; }
         public int TokensIndex { get; set; } = 0;
         public string Log { get; set; } = "";
-        public SEMANTICO semantico { get; set; } = new SEMANTICO();
+        public string EstruturaAtual { get; set; } = "Main";
+        public SEMANTICO Semantico { get; set; } = new SEMANTICO();
 
         public SINTATICO(List<Token> _tokens)
         {
@@ -47,8 +48,8 @@ namespace DS_PLUS_COMPILER.Src
 
             Console.Write(fim);
 
-            semantico.PrintLogTabela(); 
-            semantico.PrintLogSemantico();
+            Semantico.PrintLogTabela(); 
+            Semantico.PrintLogSemantico();
         }
         #endregion
                 
@@ -112,14 +113,14 @@ namespace DS_PLUS_COMPILER.Src
         private void DeclVar()
         {
             EspecTipo();
-            Var();
+            Var(true);
 
             //SIMBOLO*
-            semantico.BuscarSimbolo(Tokens[TokensIndex - 1].Lexema);
+            Semantico.BuscarSimbolo(Tokens[TokensIndex - 1].Lexema);
 
-            string status = "Inserindo no " + this.semantico.EscopoAtual; 
+            string status = "Inserindo no " + this.Semantico.EscopoAtual; 
 
-            semantico.InserirSimbolo(Tokens[TokensIndex-2].Lexema, Tokens[TokensIndex-1].Lexema, status);
+            Semantico.InserirSimbolo(Tokens[TokensIndex-2].Lexema, Tokens[TokensIndex-1].Lexema, status);
 
             if (Tokens[TokensIndex].TokenCodigo == Enums.Tokens.OP_ATRI)
             {
@@ -160,7 +161,7 @@ namespace DS_PLUS_COMPILER.Src
             }
         }
 
-        private void Var()
+        private void Var(bool isDecl)
         {
             if (Tokens[TokensIndex-1].TokenCodigo == Enums.Tokens.PR_MAIN)
             {
@@ -171,7 +172,31 @@ namespace DS_PLUS_COMPILER.Src
             {
                 if (Tokens[TokensIndex].TokenCodigo == Enums.Tokens.ID)
                 {
-                    Validado("decl-var", Tokens[TokensIndex].Lexema);                    
+                    Validado("decl-var", Tokens[TokensIndex].Lexema);
+
+                    if (!isDecl) 
+                    {
+                        var simbolo = Semantico.BuscarSimbolo(Tokens[TokensIndex].Lexema);
+
+                        if (simbolo == null)
+                        {
+                            Semantico.GravarLogSemantico(EstruturaAtual, Tokens[TokensIndex].Lexema, "declarada", "ERRO");
+                            Semantico.ErroSemantico(string.Format("Váriavel {0} não declarada.", Tokens[TokensIndex].Lexema), Tokens[TokensIndex].Linha);
+                        }
+                        else 
+                        {
+                            Semantico.GravarLogSemantico(EstruturaAtual, Tokens[TokensIndex].Lexema, "declarada", "OK");
+
+                            if (!simbolo.Inicializada) 
+                            {
+                            }
+                            else 
+                            {
+                                Semantico.GravarLogSemantico(EstruturaAtual, Tokens[TokensIndex].Lexema, "inicializada", "OK");
+                            }
+                        }                        
+                    }                    
+
                     TokensIndex++;
                 }
                 else
@@ -287,7 +312,7 @@ namespace DS_PLUS_COMPILER.Src
             {
                 Validado("com-sel", Tokens[TokensIndex].Lexema);
                 TokensIndex++;
-                semantico.EscopoAtual = "Local";
+                Semantico.EscopoAtual = "Local";
                 Bloco();
 
                 switch (Tokens[TokensIndex].TokenCodigo) 
@@ -306,7 +331,7 @@ namespace DS_PLUS_COMPILER.Src
                             if (Tokens[TokensIndex].TokenCodigo == Enums.Tokens.PONTO_VIRGULA)
                             {
                                 Validado("com-sel", Tokens[TokensIndex].Lexema);
-                                semantico.EscopoAtual = "Global";
+                                Semantico.EscopoAtual = "Global";
                                 RemoveSimbolosWHILE();
                                 TokensIndex++;
                             }
@@ -328,7 +353,7 @@ namespace DS_PLUS_COMPILER.Src
                         {
                             Validado("com-sel", Tokens[TokensIndex].Lexema);
                             TokensIndex++;
-                            semantico.EscopoAtual = "Global";
+                            Semantico.EscopoAtual = "Global";
                         }
                         else
                         {
@@ -355,7 +380,7 @@ namespace DS_PLUS_COMPILER.Src
             {
                 Validado("com-rep", Tokens[TokensIndex].Lexema);
                 TokensIndex++;
-                semantico.EscopoAtual = "Local";
+                Semantico.EscopoAtual = "Local";
                 Bloco();
 
                 if (Tokens[TokensIndex].TokenCodigo == Enums.Tokens.PR_LOOP)
@@ -366,7 +391,7 @@ namespace DS_PLUS_COMPILER.Src
                     if (Tokens[TokensIndex].TokenCodigo == Enums.Tokens.PONTO_VIRGULA)
                     {
                         Validado("com-rep", Tokens[TokensIndex].Lexema);
-                        semantico.EscopoAtual = "Global";
+                        Semantico.EscopoAtual = "Global";
                         RemoveSimbolosWHILE();
                         TokensIndex++;                        
                     }
@@ -392,7 +417,7 @@ namespace DS_PLUS_COMPILER.Src
             {
                 Validado("com-lei", Tokens[TokensIndex].Lexema);
                 TokensIndex++;
-                Var();
+                Var(false);
 
                 Validado("com-lei", Tokens[TokensIndex].Lexema);
                 TokensIndex++;
@@ -443,11 +468,11 @@ namespace DS_PLUS_COMPILER.Src
                 Validado("com-atr", Tokens[TokensIndex].Lexema);
                 TokensIndex++;
 
-                Simbolo simbolo = semantico.BuscarSimbolo(Tokens[TokensIndex - 2].Lexema);
+                Simbolo simbolo = Semantico.BuscarSimbolo(Tokens[TokensIndex - 2].Lexema);
 
                 if (simbolo != null && !simbolo.Inicializada)
                 {
-                    semantico.AtualizarSimbolo(simbolo.ID, true);
+                    Semantico.AtualizarSimbolo(simbolo.ID, true);
                 }                
 
                 Exp();
@@ -536,7 +561,7 @@ namespace DS_PLUS_COMPILER.Src
                     }
                     break;
                 case Enums.Tokens.ID:
-                    Var();
+                    Var(false);
                     break;
                 case Enums.Tokens.LIT_INT:
                 case Enums.Tokens.LIT_FLT:
@@ -670,31 +695,31 @@ namespace DS_PLUS_COMPILER.Src
 
         private void RemoveSimbolosMain() 
         {
-            List<Simbolo> simbolosGlobais = semantico.BuscarSimboloPorEscopo("Global");
+            List<Simbolo> simbolosGlobais = Semantico.BuscarSimboloPorEscopo("Global");
 
             foreach (var item in simbolosGlobais)
             {
-                semantico.RemoverSimbolo(item.ID, "Saida no main.");
+                Semantico.RemoverSimbolo(item.ID, "Saida no main.");
             }
         }
 
         private void RemoveSimbolosIF()
         {
-            List<Simbolo> simbolosGlobais = semantico.BuscarSimboloPorEscopo("Local");
+            List<Simbolo> simbolosGlobais = Semantico.BuscarSimboloPorEscopo("Local");
 
             foreach (var item in simbolosGlobais)
             {
-                semantico.RemoverSimbolo(item.ID, "Saida no if.");
+                Semantico.RemoverSimbolo(item.ID, "Saida no if.");
             }
         }
 
         private void RemoveSimbolosWHILE()
         {
-            List<Simbolo> simbolosGlobais = semantico.BuscarSimboloPorEscopo("Local");
+            List<Simbolo> simbolosGlobais = Semantico.BuscarSimboloPorEscopo("Local");
 
             foreach (var item in simbolosGlobais)
             {
-                semantico.RemoverSimbolo(item.ID, "Saida no while.");
+                Semantico.RemoverSimbolo(item.ID, "Saida no while.");
             }
         }
 
@@ -748,11 +773,8 @@ namespace DS_PLUS_COMPILER.Src
 
             Console.Write(erro);
 
-            //Le o arquivo de entrada
-            File fileReader = new(Config.InputPath);
-
-            //Gera arquivo de log da analise semantico
-            fileReader.PrintFile(this.Log, "AnaliseSintaticoLog.txt");
+            //Gera arquivo de log da analise Semantico
+            File.PrintFile(this.Log, "AnaliseSintaticoLog.txt");
 
             Environment.Exit(1);
         }

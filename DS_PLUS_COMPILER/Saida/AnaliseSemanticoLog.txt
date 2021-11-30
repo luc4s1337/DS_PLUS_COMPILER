@@ -1,28 +1,20 @@
------------(INICIO)-PRINT-TABELA-DE-SIMBOLOS------------------
-
-NOME           TIPO        ESCOPO        INICIALIZADA    ATIVO      STATUS
-
-_teste1        INT         Global        False           True       Inserindo no Global
-_teste1        INT         Global        True            True       Inicializa a variavel
-_teste2        INT         Global        False           True       Inserindo no Global
-_teste2        INT         Global        True            True       Inicializa a variavel
-_teste3        INT         Global        False           True       Inserindo no Global
-_teste3        INT         Global        True            True       Inicializa a variavel
-_teste_float   FLOAT       Global        False           True       Inserindo no Global
-_i             INT         Global        False           True       Inserindo no Global
-_i             INT         Global        True            True       Inicializa a variavel
-_int_local     INT         Local         False           True       Inserindo no Local
-_int_local     INT         Local         True            True       Inicializa a variavel
-_int3          INT         Local         False           True       Inserindo no Local
-_int3          INT         Local         True            True       Inicializa a variavel
-_int_local     INT         Local         True            False      Saida no while.
-_int3          INT         Local         True            False      Saida no while.
-_teste1        INT         Global        True            False      Saida no main.
-_teste2        INT         Global        True            False      Saida no main.
-_teste3        INT         Global        True            False      Saida no main.
-_teste_float   FLOAT       Global        False           False      Saida no main.
-_i             INT         Global        True            False      Saida no main.
 -----------(INICIO)-PRINT-ANALISE-SEMANTICA------------------
 
-              BLOCO                    LEXEMA                           SITUAÇÃO
+ESTRUTURA      LEXEMA(S)           TIPO                SITUAÇÃO
 
+Main           _teste1             declarada           OK
+Main           _teste1             inicializada        OK
+Main           _teste2             declarada           OK
+Main           _teste2             inicializada        OK
+Main           _teste2             declarada           OK
+Main           _teste2             inicializada        OK
+Main           _teste1             declarada           OK
+Main           _teste1             inicializada        OK
+Main           _teste_float        declarada           OK
+Main           _i                  declarada           OK
+Main           _i                  inicializada        OK
+Main           _int_local          declarada           OK
+Main           _int_local          inicializada        OK
+Main           _int_local2         declarada           ERRO
+
+Erro na linha 25 -> Váriavel _int_local2 não declarada. 

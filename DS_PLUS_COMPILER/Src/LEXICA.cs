@@ -1033,6 +1033,7 @@ namespace DS_PLUS_COMPILER.Src
 
 			Token token = new(this.LexemaAtual);
 			token.TokenCodigo = _token;
+			token.Linha = this.Linha;
 
 			this.Tokens.Add(token);
 			this.Estado = 0;
@@ -1084,11 +1085,8 @@ namespace DS_PLUS_COMPILER.Src
 
 				Console.WriteLine(erro_message);
 
-				//Le o arquivo de entrada
-				File fileReader = new(Config.InputPath);
-
 				//Gera arquivo de log da analise semantico
-				fileReader.PrintFile(print, "AnaliseLexicaLog.txt");
+				File.PrintFile(print, "AnaliseLexicaLog.txt");
 
 				Environment.Exit(1);
 			}				
