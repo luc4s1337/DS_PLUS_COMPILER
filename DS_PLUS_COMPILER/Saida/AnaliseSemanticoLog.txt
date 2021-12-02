@@ -25,26 +25,7 @@ ComSelec       _teste1             inicializada        OK
 Main           _teste3             atribuicao          OK
 Main           _teste3             atribuicao          OK
 Main           _teste_float        declarada           OK
-Main           _teste_float        atribuicao          OK
 ComEscrita     _teste_float        busca na tabela     OK
-ComEscrita     _teste_float        inicializada        OK
-Main           _i                  declarada           OK
-Main           _i                  atribuicao          OK
-ComRepeticao   _i                  busca na tabela     OK
-ComRepeticao   _i                  inicializada        OK
-ComRepeticao   LIT_INT < LIT_INT   OpRelac             OK
-ComRepeticao   _i                  atribuicao          OK
-Main           _int_local          declarada           OK
-Main           _int_local          atribuicao          OK
-Main           _int_local2         declarada           OK
-Main           _int_local2         atribuicao          OK
-Main           _int3               declarada           OK
-Main           _int_local          busca na tabela     OK
-Main           _int_local          Tipos               OK
-Main           _int_local          busca na tabela     OK
-Main           _int_local          inicializada        OK
-Main           LIT_INT + LIT_INT   OpSoma              OK
-Main           _int_local2         busca na tabela     OK
-Main           _int_local2         inicializada        OK
+ComEscrita     _teste_float        inicializada        ERRO
 
-PROGRAMA VÁLIDO SEMANTICAMENTE!
+Erro na linha 18 -> Váriavel _teste_float não inicializada. 

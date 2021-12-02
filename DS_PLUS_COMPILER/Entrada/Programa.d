@@ -1,5 +1,5 @@
 main()
-	var int _teste1 = 5 - 2 + 1 * 5;
+	var int _teste1 = 5 - 2 + 1 * 3;
 	var int _teste2 = 2 / 1;
 	var int _teste3;
 
@@ -13,13 +13,13 @@ main()
 		_teste3 = 1234;
 	end;
 
-	var float _teste_float = 23.2;
-	
+	var float _teste_float;
+
 	print(_teste_float);
 
 	var int _i = 0;
 
-	while _i < 10 do 
+	while _i < 10 do
 		var int _int_local = 34;
 		var int _int_local2 = 2;
 

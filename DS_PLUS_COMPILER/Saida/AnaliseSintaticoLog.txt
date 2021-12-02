@@ -15,7 +15,7 @@
 |             op-soma        |         +                    |           OK
 |             literal        |         1                    |           OK
 |             op-mult        |         *                    |           OK
-|             literal        |         5                    |           OK
+|             literal        |         3                    |           OK
 |             decl-var       |         ;                    |           OK
 |             decl-var       |         var                  |           OK
 |             espec-tipo     |         int                  |           OK
@@ -60,7 +60,7 @@
 |             espec-tipo     |         float                |           OK
 |             decl-var       |         _teste_float         |           OK
 |             com-atr        |         =                    |           OK
-|             literal        |         23.2                 |           OK
+|             literal        |         23.3                 |           OK
 |             decl-var       |         ;                    |           OK
 |             com-esc        |         print                |           OK
 |             com-esc        |         (                    |           OK
