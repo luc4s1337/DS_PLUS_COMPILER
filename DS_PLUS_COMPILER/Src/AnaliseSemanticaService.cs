@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DS_PLUS_COMPILER.Src
 {
-    class SEMANTICO
+    class AnaliseSemanticaService
     {
         public Dictionary<int, Simbolo> TabelaDeSimbolos { get; set; } = new Dictionary<int, Simbolo>();
         public int SimbolosId { get; set; } = 0;
@@ -15,7 +15,7 @@ namespace DS_PLUS_COMPILER.Src
         public string LogSemantico { get; set; } = "";
         public string EscopoAtual { get; set; } = "Global";
 
-        public SEMANTICO() 
+        public AnaliseSemanticaService() 
         {
             InicializaLogTS();
             InicializaLogSEMANTICO();
@@ -197,7 +197,7 @@ namespace DS_PLUS_COMPILER.Src
             Console.Write(LogTabelaSimbolo+"\n\n");
 
             //Gera arquivo de log da analise da tabela de simbolos
-            File.PrintFile(this.LogTabelaSimbolo, "TabelaSimbolosLog.txt");
+            FileManager.PrintFile(this.LogTabelaSimbolo, "TabelaSimbolosLog.txt");
         }
 
         private void InicializaLogSEMANTICO()
@@ -214,7 +214,7 @@ namespace DS_PLUS_COMPILER.Src
             Console.Write(LogSemantico + "\n\n");
 
             //Gera arquivo de log da analise semantica
-            File.PrintFile(this.LogSemantico, "AnaliseSemanticoLog.txt");
+            FileManager.PrintFile(this.LogSemantico, "AnaliseSemanticoLog.txt");
         }
         #endregion
     }

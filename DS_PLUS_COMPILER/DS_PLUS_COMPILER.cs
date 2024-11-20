@@ -18,19 +18,19 @@ namespace DS_PLUS_COMPILER
                 .SetBuffer(fileReader.GetFileBuffer())
                 .Execute();
 
-            string logAnaliseLexica = analisadorLexico.PrintLog();
-
             FileManager.PrintFile(
-                logAnaliseLexica,
+                analisadorLexico.GetLog(),
                 "AnaliseLexicaLog.txt"
             );
 
-            SINTATICO analisadorSintatico = new(analisadorLexico.GetTokens());
+            AnaliseSintaticaService analisadorSintatico = new AnaliseSintaticaService()
+                .SetTokens(analisadorLexico.GetTokens())
+                .Execute();
 
-            analisadorSintatico.StartAnaliseSintatica();
-            string logAnaliseSintatica = analisadorSintatico.Log;
-
-            FileManager.PrintFile(logAnaliseSintatica, "AnaliseSintaticoLog.txt");
+            FileManager.PrintFile(
+                analisadorSintatico.Log,
+                "AnaliseSintaticoLog.txt"
+            );
                         
             Console.ReadKey();
 

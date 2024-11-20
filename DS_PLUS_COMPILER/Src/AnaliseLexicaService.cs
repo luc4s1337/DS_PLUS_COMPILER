@@ -1072,7 +1072,7 @@ namespace DS_PLUS_COMPILER.Src
 		{
 			if (tipo == "Erro")
 			{
-				string message = PrintLog();
+				string message = GetLog();
 				string erroMessage = string.Format("'{0}': {1}, Lexema: {2}, Linha -> {3}", tipo, erro, lexema, this.Linha);
 
                 message += erroMessage;
@@ -1086,7 +1086,7 @@ namespace DS_PLUS_COMPILER.Src
 			}				
 		}
 
-		public string PrintLog() 
+		public string GetLog() 
 		{
 			string print = "---------------(INICIO)-PRINT-LEXICO----------------\n\n";
 			
