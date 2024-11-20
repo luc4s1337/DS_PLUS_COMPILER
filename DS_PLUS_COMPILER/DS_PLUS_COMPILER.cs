@@ -10,28 +10,23 @@ namespace DS_PLUS_COMPILER
         {
             Console.WriteLine(string.Format("BEM VINDO AO {0}! \n\n", Config.Aplicacao));
 
-            //Le o arquivo de entrada
-            File fileReader = new (Config.InputPath);
+            FileManager fileReader = new FileManager()
+                .SetFilePath(Config.InputPath)
+                .OpenFileStream();
 
-            //Cria o analisador lexico com o buffer do arquivo de entrada
-            LEXICA analisadorLexico = new(fileReader.Buffer);
+            LEXICA analisadorLexico = new(fileReader.GetFileBuffer());
 
-            //Inicia a analise lexica
             analisadorLexico.StartAnaliseLexica();
-            string lexicoPrint = analisadorLexico.PrintAnalise();
+            string logAnaliseLexica = analisadorLexico.PrintAnalise();
 
-            //Gera arquivo de log da analise lexica
-            File.PrintFile(lexicoPrint, "AnaliseLexicaLog.txt");
+            FileManager.PrintFile(logAnaliseLexica, "AnaliseLexicaLog.txt");
 
-            //Cria o analisador sintatico e utiliza a lista de tokens gerados no lexico
             SINTATICO analisadorSintatico = new(analisadorLexico.Tokens);
 
-            //Inicia a analise sintatica
             analisadorSintatico.StartAnaliseSintatica();
-            string sintaticoPrint = analisadorSintatico.Log;
+            string logAnaliseSintatica = analisadorSintatico.Log;
 
-            //Gera arquivo de log da analise sintatica
-            File.PrintFile(sintaticoPrint, "AnaliseSintaticoLog.txt");
+            FileManager.PrintFile(logAnaliseSintatica, "AnaliseSintaticoLog.txt");
                         
             Console.ReadKey();
 

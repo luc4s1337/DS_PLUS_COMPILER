@@ -361,3 +361,7 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/DS_PLUS_COMPILER/Saida/AnaliseLexicaLog.txt
+/DS_PLUS_COMPILER/Saida/AnaliseSemanticoLog.txt
+/DS_PLUS_COMPILER/Saida/AnaliseSintaticoLog.txt
+/DS_PLUS_COMPILER/Saida/TabelaSimbolosLog.txt

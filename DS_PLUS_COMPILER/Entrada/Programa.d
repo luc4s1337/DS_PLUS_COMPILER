@@ -13,7 +13,7 @@ main()
 		_teste3 = 1234;
 	end;
 
-	var float _teste_float;
+	var float _teste_float = 123.43;
 
 	print(_teste_float);
 
