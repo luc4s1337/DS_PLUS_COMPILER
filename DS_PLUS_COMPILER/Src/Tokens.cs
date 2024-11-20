@@ -11,69 +11,96 @@ namespace DS_PLUS_COMPILER.Src
     {
         public enum Tokens
         {
-            ID, //done
-            FIM, //done
+            ID,
+            FIM,
 
-            LIT_INT, //done
-            LIT_FLT, //done
-            LIT_CHAR, //done
-            LIT_STR, //done
+            LIT_INT,
+            LIT_FLT,
+            LIT_CHAR,
+            LIT_STR,
 
-            PR_BOOL, //done
-            PR_CHAR, //done
-            PR_DO, //done
-            PR_ELSE, //done
-            PR_STR, //done
-            PR_VOID, //done
-            PR_VAR, //done
-            PR_THEN, //done
-            PR_FLT, //done
-            PR_IF, //done
-            PR_INT, //done
-            PR_WHILE, //done
+            PR_BOOL,
+            PR_CHAR,
+            PR_DO, 
+            PR_ELSE,
+            PR_STR,
+            PR_VOID,
+            PR_VAR,
+            PR_THEN,
+            PR_FLT,
+            PR_IF,
+            PR_INT,
+            PR_WHILE,
 
-            PR_MAIN, //done
-            PR_LOOP, //done
-            PR_PRINT, //done
-            PR_RTN, //done
-            PR_SCN, //done     
-            PR_END, //done
+            PR_MAIN,
+            PR_LOOP,
+            PR_PRINT,
+            PR_RTN,
+            PR_SCN,     
+            PR_END,
 
-            OP_SOMA, //done
-            OP_SUB, //done 
-            OP_MULT, //done
-            OP_DIV, //done
-            OP_MOD, //done
-            OP_MAIOR, //done
-            OP_MENOR, //done
-            OP_ATRI, //done
-            OP_IGUAL, //done
-            OP_NEGA, //done
-            OP_DIFERENTE, //done
-            OP_MAIOR_IGUAL, //done
-            OP_MENOR_IGUAL, //done
+            OP_SOMA,
+            OP_SUB,
+            OP_MULT,
+            OP_DIV,
+            OP_MOD,
+            OP_MAIOR,
+            OP_MENOR,
+            OP_ATRI,
+            OP_IGUAL,
+            OP_NEGA,
+            OP_DIFERENTE,
+            OP_MAIOR_IGUAL,
+            OP_MENOR_IGUAL,
 
-            VIRGULA, //done
-            PONTO_VIRGULA, //done
-            ABRE_COLCHETES, //done
-            FECHA_COLCHETES,//done
-            ABRE_CHAVES,//done
-            FECHA_CHAVES, //done
-            ABRE_PARENTESES, //done
-            FECHA_PARENTESES //done
+            VIRGULA,
+            PONTO_VIRGULA,
+            ABRE_COLCHETES, 
+            FECHA_COLCHETES,
+            ABRE_CHAVES,
+            FECHA_CHAVES,
+            ABRE_PARENTESES,
+            FECHA_PARENTESES
         }
     }
 
     class Token
     {
-        public Tokens TokenCodigo { get; set; }
-        public string Lexema { get; set; }
+        private Tokens TokenCodigo;
+        private string Lexema;
+        private int Linha;
 
-        public int Linha { get; set; }
-
-        public Token(string _lexema)
+        public Tokens GetCodigo()
         {
-            this.Lexema = _lexema;
+            return this.TokenCodigo;
+        }
+
+        public Token SetCodigo(Tokens codigo) 
+        {
+            this.TokenCodigo = codigo;
+            return this;
+        }        
+
+        public Token SetLexema(string lexema)
+        {
+            this.Lexema = lexema;
+            return this;
+        }
+
+        public string GetLexema()
+        {
+            return this.Lexema;
+        }
+
+        public Token SetLinha(int linha)
+        {
+            this.Linha = linha;
+            return this;
+        }
+
+        public int GetLinha()
+        {
+            return this.Linha;
         }
     }
 }

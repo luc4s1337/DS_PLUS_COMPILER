@@ -14,14 +14,18 @@ namespace DS_PLUS_COMPILER
                 .SetFilePath(Config.InputPath)
                 .OpenFileStream();
 
-            LEXICA analisadorLexico = new(fileReader.GetFileBuffer());
+            AnaliseLexicaService analisadorLexico = new AnaliseLexicaService()
+                .SetBuffer(fileReader.GetFileBuffer())
+                .Execute();
 
-            analisadorLexico.StartAnaliseLexica();
-            string logAnaliseLexica = analisadorLexico.PrintAnalise();
+            string logAnaliseLexica = analisadorLexico.PrintLog();
 
-            FileManager.PrintFile(logAnaliseLexica, "AnaliseLexicaLog.txt");
+            FileManager.PrintFile(
+                logAnaliseLexica,
+                "AnaliseLexicaLog.txt"
+            );
 
-            SINTATICO analisadorSintatico = new(analisadorLexico.Tokens);
+            SINTATICO analisadorSintatico = new(analisadorLexico.GetTokens());
 
             analisadorSintatico.StartAnaliseSintatica();
             string logAnaliseSintatica = analisadorSintatico.Log;
